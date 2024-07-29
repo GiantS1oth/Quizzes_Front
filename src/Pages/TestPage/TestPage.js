@@ -204,7 +204,7 @@ const TestPage = () => {
         {currentQuestion.image && <img src={currentQuestion.image} alt="Question" />}
       </div>
       <button onClick={handleSubmitAnswer}>Ответить</button>
-      <button onClick={() => setCurrentQuestionIndex(prevIndex => prevIndex + 1)}>Следующий вопрос</button>
+      
     </div>
   );
 };
