@@ -15,11 +15,10 @@ const AddQuestion = () => {
   const [questionNumber, setQuestionNumber] = useState(1);
 
   useEffect(() => {
-    // Загружаем количество вопросов из localStorage, если это необходимо
-    // В данном случае мы обошли localStorage
+    
   }, [quizId]);
 
-  // Функция для отправки вопроса на сервер
+
   const handleSendQuestion = async (newQuestion) => {
     const token = localStorage.getItem('token');
     try {
@@ -47,7 +46,7 @@ const AddQuestion = () => {
     }
   };
 
-  // Функция для обработки кнопки "Далее"
+ 
   const handleSubmit = async (e) => {
     e.preventDefault();
 

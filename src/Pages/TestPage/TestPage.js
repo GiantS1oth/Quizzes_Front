@@ -7,7 +7,7 @@ const TestPage = () => {
   const location = useLocation();
   const query = new URLSearchParams(location.search);
   const quizId = query.get('quizId');
-  const startTest = query.get('startTest') === 'true'; // Проверяем параметр
+  const startTest = query.get('startTest') === 'true'; 
 
   const [folderName, setFolderName] = useState('');
   const [questions, setQuestions] = useState([]);
@@ -18,8 +18,8 @@ const TestPage = () => {
   const [feedback, setFeedback] = useState('');
   const [isTestFinished, setIsTestFinished] = useState(false);
   const [loading, setLoading] = useState(true);
-  const [elapsedTime, setElapsedTime] = useState(0); // Время прохождения теста
-  const timerRef = useRef(null); // Ссылка на таймер
+  const [elapsedTime, setElapsedTime] = useState(0); 
+  const timerRef = useRef(null); 
 
   useEffect(() => {
     const fetchQuizData = async () => {
@@ -43,7 +43,7 @@ const TestPage = () => {
         setRoundId(data.roundId);
         setLoading(false);
         
-        // Если тест начат, запускаем таймер
+        
         if (startTest) {
           timerRef.current = setInterval(() => {
             setElapsedTime(prevTime => prevTime + 1);
@@ -58,7 +58,7 @@ const TestPage = () => {
 
     fetchQuizData();
 
-    // Очистка таймера при размонтировании компонента
+    
     return () => clearInterval(timerRef.current);
   }, [quizId, startTest]);
 
@@ -81,7 +81,7 @@ const TestPage = () => {
       }
     ]);
 
-    setSelectedAnswer(null); // Сброс выбора ответа
+    setSelectedAnswer(null); 
 
     if (currentQuestionIndex < questions.length - 1) {
       setCurrentQuestionIndex(prevIndex => prevIndex + 1);
@@ -92,7 +92,7 @@ const TestPage = () => {
 
   const finishQuiz = async () => {
     try {
-      clearInterval(timerRef.current); // Остановка таймера
+      clearInterval(timerRef.current); 
       const token = localStorage.getItem('token');
       const response = await fetch('http://localhost:8192/quizzes/api/v1/quizzes/finish', {
         method: 'PATCH',

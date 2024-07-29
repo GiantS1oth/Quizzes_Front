@@ -30,7 +30,6 @@ function TheoryPage() {
 
         if (response.ok) {
           const data = await response.json();
-          console.log('Fetched data:', data); // Проверка данных в консоли
           setQuestions(data);
         } else {
           const errorData = await response.json();
