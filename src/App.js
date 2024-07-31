@@ -15,6 +15,8 @@ import QuizDetails from './components/QuizDetails/QuizDetails';
 import CurrentQuizDetail from './components/CurrentQuizDetailed/CurrentQuizDetailed';
 import TestPage from './Pages/TestPage/TestPage';
 import TheoryPage from './Pages/TheoryPage/TheoryPage';
+import CreateCategories from './Pages/CreateCategory/CreateCategory';
+import SearchCategory from './Pages/SearchCategory/SearchCategory';
 
 
 
@@ -35,7 +37,9 @@ function App() {
           <Route path='/myQuizzes' element={<MyQuizzes />} />
           <Route path='/quiz-detail' element={<QuizDetails />} />
           <Route path='/test' element={<TestPage />} />
-          <Route path='/theory' element={<TheoryPage/>} />
+          <Route path='/theory' element={<TheoryPage />} />
+          <Route path='/createCategory' element={<CreateCategories />} />
+          <Route path='/searchCategory' element={<SearchCategory/>} />
         </Routes>
       </div>
     </Router>

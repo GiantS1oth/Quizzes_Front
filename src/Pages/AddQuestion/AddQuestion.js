@@ -32,7 +32,7 @@ const AddQuestion = () => {
       });
 
       if (response.ok) {
-        console.log('Question successfully saved');
+        console.log('Вопрос успешно сохранён');
         return true;
       } else {
         const errorData = await response.json();
