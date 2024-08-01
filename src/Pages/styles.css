@@ -139,6 +139,7 @@ footer {
 
 /* Стили для кнопок */
 button {
+  background-color: #007bff;
   padding: 10px 20px;
   font-size: 16px;
   margin: 0 10px;
@@ -182,4 +183,71 @@ button:disabled {
 
 .category-container {
   position: relative;
+}
+
+
+.favorites-container {
+  padding: 20px;
+}
+
+
+.favorites-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+
+.quiz-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+  cursor: pointer; 
+  transition: background-color 0.3s, box-shadow 0.3s;
+}
+
+.quiz-item:hover {
+  background-color: #e0e0e0; 
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); 
+}
+
+
+.quiz-content {
+  flex: 1;
+}
+
+
+.actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+
+.remove-button {
+  width: 30px;
+  height: 30px;
+  border: none;
+  border-radius: 50%;
+  background-color: #ff0000;
+  color: #fff;
+  font-size: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.remove-button:hover {
+  background-color: #cc0000;
+}
+
+
+.message {
+  color: #ff0000;
 }

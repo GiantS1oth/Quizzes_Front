@@ -4,10 +4,8 @@ import '../styles.css';
 
 function MyQuizzes() {
   const [quizzes, setQuizzes] = useState([]);
+  const [message, setMessage] = useState('');
   const navigate = useNavigate();
-  
-  
-  
 
   useEffect(() => {
     const fetchQuizzes = async () => {
@@ -32,10 +30,41 @@ function MyQuizzes() {
     navigate(`/current-quiz-detail?quizId=${quizId}`);
   };
 
+  const addToFavorites = async (quizId) => {
+    const token = localStorage.getItem('token');
+    try {
+      const response = await fetch(`http://localhost:8192/quizzes/api/v1/quizzes/addToFavorites?quiz_id=${quizId}`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        },
+      });
+
+      if (!response.ok) {
+        const errorText = await response.text();
+        throw new Error(`Ошибка сети: ${response.status} ${response.statusText} - ${errorText}`);
+      }
+
+      if (response.status === 200) {
+        setMessage('Тест добавлен в избранное.');
+        setTimeout(() => setMessage(''), 3000);
+      } else {
+        setMessage('Не удалось добавить тест в избранное.');
+        setTimeout(() => setMessage(''), 3000);
+      }
+    } catch (error) {
+      console.error('Ошибка:', error);
+      setMessage(`Ошибка добавления теста в избранное: ${error.message}`);
+      setTimeout(() => setMessage(''), 3000);
+    }
+  };
+
   return (
     <div>
       <header id="header">
         <h1>Мои тесты</h1>
+        {message && <p>{message}</p>}
       </header>
       <div id="quizzesList">
         {quizzes.length > 0 ? (
@@ -44,6 +73,7 @@ function MyQuizzes() {
               <h2>{quiz.name}</h2>
               <p>{quiz.description}</p>
               <button onClick={() => openQuizDetail(quiz.id)}>Открыть детали</button>
+              <button onClick={() => addToFavorites(quiz.id)}>Добавить в избранное</button>
             </div>
           ))
         ) : (

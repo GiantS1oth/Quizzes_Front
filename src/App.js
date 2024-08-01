@@ -17,6 +17,7 @@ import TestPage from './Pages/TestPage/TestPage';
 import TheoryPage from './Pages/TheoryPage/TheoryPage';
 import CreateCategories from './Pages/CreateCategory/CreateCategory';
 import SearchCategory from './Pages/SearchCategory/SearchCategory';
+import MyFavorites from './Pages/MyFavorites/MyFavorites';
 
 
 
@@ -39,7 +40,8 @@ function App() {
           <Route path='/test' element={<TestPage />} />
           <Route path='/theory' element={<TheoryPage />} />
           <Route path='/createCategory' element={<CreateCategories />} />
-          <Route path='/searchCategory' element={<SearchCategory/>} />
+          <Route path='/searchCategory' element={<SearchCategory />} />
+          <Route path='/favorites' element={<MyFavorites/>} />
         </Routes>
       </div>
     </Router>

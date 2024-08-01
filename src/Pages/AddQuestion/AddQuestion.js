@@ -69,7 +69,7 @@ const AddQuestion = () => {
     const success = await handleSendQuestion(newQuestion);
     
     if (success) {
-      // Переход на следующий вопрос
+      
       setQuestionText('');
       setAnswers({ text1: '', text2: '', text3: '', text4: '' });
       setRightAnswer('');
@@ -78,7 +78,7 @@ const AddQuestion = () => {
     }
   };
 
-  // Функция для обработки кнопки "Сохранить и вернуться"
+  
   const handleSaveAndReturn = async (e) => {
     e.preventDefault();
 
@@ -101,7 +101,6 @@ const AddQuestion = () => {
     const success = await handleSendQuestion(newQuestion);
 
     if (success) {
-      // Переход на страницу с деталями квиза
       navigate(`/current-quiz-detail?quizId=${quizId}`);
     }
   };

@@ -55,7 +55,7 @@ const QuizDetails = () => {
   };
 
   if (!quiz) {
-    return <p>Загрузка...</p>;
+    return <p>Не удалось загрузить тест</p>;
   }
 
   return (

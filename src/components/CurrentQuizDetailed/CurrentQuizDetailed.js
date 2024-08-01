@@ -6,8 +6,8 @@ const CurrentQuizDetailed = () => {
   const [quiz, setQuiz] = useState(null);
   const navigate = useNavigate();
   const location = useLocation();
-  const query = new URLSearchParams(location.search); // 
-  const quizId = query.get('quizId'); 
+  const query = new URLSearchParams(location.search);
+  const quizId = query.get('quizId');
   const token = localStorage.getItem('token');
 
   useEffect(() => {
@@ -55,9 +55,11 @@ const CurrentQuizDetailed = () => {
     }
     navigate(`/test?quizId=${quizId}&startTest=true`);
   };
+
   const returnToQuizzes = () => {
     navigate(`/myQuizzes`);
-  }
+  };
+
   return (
     <div id="header">
       {quiz ? (
@@ -70,7 +72,7 @@ const CurrentQuizDetailed = () => {
           <button onClick={returnToQuizzes}>Назад</button>
         </>
       ) : (
-        <p>Загрузка...</p>
+        <p>Тест не найден</p>
       )}
     </div>
   );

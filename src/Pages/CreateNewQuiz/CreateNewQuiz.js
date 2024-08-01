@@ -159,10 +159,10 @@ const CreateNewQuiz = () => {
             value={category}
             onChange={(e) => {
               setCategory(e.target.value);
-              setShowResults(true); // Показать результаты поиска при вводе
+              setShowResults(true); 
             }}
             onBlur={() => {
-              // Установить задержку для скрытия результатов поиска, чтобы пользователь мог кликнуть на результат
+              
               setTimeout(() => setShowResults(false), 100);
             }}
             required
@@ -178,7 +178,7 @@ const CreateNewQuiz = () => {
               </ul>
             </div>
           )}
-          {isLoading && <p>Загрузка...</p>}
+          {isLoading}
         </div>
         <button type="submit">Создать</button>
       </form>
