@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './styles.css';
 
-const SearchCategoryById = ({ onSelectCategory }) => {
+const SearchCategoryByName = ({ onSelectCategory }) => {
   const [query, setQuery] = useState('');
   const [results, setResults] = useState([]);
   const [message, setMessage] = useState('');
@@ -74,4 +74,4 @@ const SearchCategoryById = ({ onSelectCategory }) => {
   );
 };
 
-export default SearchCategoryById;
+export default SearchCategoryByName;
