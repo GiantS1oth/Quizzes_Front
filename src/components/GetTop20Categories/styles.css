@@ -1,0 +1,25 @@
+.top-categories-container {
+  margin-top: 10px;
+  border: 1px solid #ccc;
+  background-color: #fff;
+  max-height: 300px;
+  overflow-y: auto;
+  position: absolute;
+  width: 100%;
+  z-index: 10;
+}
+
+.top-category-button {
+  display: block;
+  width: 100%;
+  padding: 10px;
+  border: none;
+  background-color: #f8f8f8;
+  text-align: left;
+  cursor: pointer;
+}
+
+.top-category-button:hover {
+  background-color: #e0e0e0;
+}
+
