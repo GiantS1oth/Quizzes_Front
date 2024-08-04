@@ -50,7 +50,7 @@ function Quizzes() {
       if (response.ok) {
         const data = await response.json();
         setDialogData(data);
-        openSearchDialog();
+        openSearchDialog(); 
       } else {
         const errorData = await response.json();
         console.error('Ошибка поиска:', errorData.message || 'Неизвестная ошибка');
@@ -68,7 +68,6 @@ function Quizzes() {
           <button onClick={showFavorites}>Избранное</button>
           <button onClick={showMyQuizzes}>Мои</button>
           <button onClick={addNewQuiz}>Добавить новый тест</button>
-          
         </div>
       </header>
       <main id="content">
@@ -79,17 +78,18 @@ function Quizzes() {
           onChange={(e) => {
             const value = e.target.value;
             setSearchQuery(value);
-            handleSearch(value);
+            handleSearch(value); 
           }}
           className="search-input"
         />
         <SearchDialog 
           show={showDialog} 
           onClose={closeSearchDialog} 
+          onSearch={handleSearch} 
           data={dialogData}
         />
         <div>
-        <GetTop20Categories />
+          <GetTop20Categories />
         </div>
       </main>
     </div>

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './styles.css'; 
 
-const SearchDialog = ({ show, onClose, data }) => {
+const SearchDialog = ({ show, onClose, onSearch, data }) => {
   const [query, setQuery] = useState('');
 
   useEffect(() => {
@@ -10,9 +10,14 @@ const SearchDialog = ({ show, onClose, data }) => {
     }
   }, [show]);
 
+  useEffect(() => {
+    if (query) {
+      onSearch(query); 
+    }
+  }, [query, onSearch]);
+
   const handleChange = (e) => {
-    const value = e.target.value;
-    setQuery(value);
+    setQuery(e.target.value);
   };
 
   if (!show) return null;
