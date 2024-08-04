@@ -1,5 +1,5 @@
 
-import SearchCategoryById from "../../components/SearchCategoryById/SearchCategoryById";
+import SearchCategoryById from "../../components/SearchCategoryByName/SearchCategoryByName";
 
 function SearchCategory() {
   return <SearchCategoryById/>
