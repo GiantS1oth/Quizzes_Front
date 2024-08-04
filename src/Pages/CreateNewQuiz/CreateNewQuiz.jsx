@@ -11,6 +11,7 @@ const CreateNewQuiz = () => {
   const [message, setMessage] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [showResults, setShowResults] = useState(false);
+  const [showConfirm, setShowConfirm] = useState(false);
 
   const navigate = useNavigate();
 
@@ -35,6 +36,7 @@ const CreateNewQuiz = () => {
       if (response.ok) {
         const data = await response.json();
         setResults(data);
+        setSelectedCategory(data.length > 0 ? data[0] : null);
       } else {
         const errorData = await response.json();
         setMessage('Ошибка поиска категории: ' + (errorData.message || 'Неизвестная ошибка'));
@@ -100,6 +102,11 @@ const CreateNewQuiz = () => {
       return;
     }
 
+    if (selectedCategory) {
+      setShowConfirm(true);
+      return;
+    }
+
     let categoryId = selectedCategory?.id;
 
     if (!categoryId) {
@@ -107,6 +114,12 @@ const CreateNewQuiz = () => {
       if (!categoryId) return;
     }
 
+    createQuiz(categoryId);
+  };
+
+  const createQuiz = async (categoryId) => {
+    const token = localStorage.getItem('token');
+    
     try {
       const response = await fetch('http://localhost:8192/quizzes/api/v1/quizzes/createQuiz', {
         method: 'POST',
@@ -128,6 +141,17 @@ const CreateNewQuiz = () => {
     } catch (error) {
       console.error('Ошибка при создании теста:', error);
       alert('Не удалось создать тест.');
+    }
+  };
+
+  const handleConfirm = (confirm) => {
+    setShowConfirm(false);
+    if (confirm) {
+      createQuiz(selectedCategory.id);
+    } else {
+      setCategory('');
+      setSelectedCategory(null);
+      setResults([]);
     }
   };
 
@@ -162,7 +186,6 @@ const CreateNewQuiz = () => {
               setShowResults(true); 
             }}
             onBlur={() => {
-              
               setTimeout(() => setShowResults(false), 100);
             }}
             required
@@ -178,11 +201,19 @@ const CreateNewQuiz = () => {
               </ul>
             </div>
           )}
-          {isLoading}
+          {isLoading && <p>Загрузка...</p>}
         </div>
         <button type="submit">Создать</button>
       </form>
       {message && <p>{message}</p>}
+      
+      {showConfirm && (
+        <div className="confirm-dialog">
+          <p>Такая категория уже существует, хотите добавить ваш тест в эту категорию?</p>
+          <button onClick={() => handleConfirm(true)}>Да</button>
+          <button onClick={() => handleConfirm(false)}>Нет</button>
+        </div>
+      )}
     </div>
   );
 };
