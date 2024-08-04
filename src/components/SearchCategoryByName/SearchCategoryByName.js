@@ -45,8 +45,7 @@ const SearchCategoryByName = ({ onSelectCategory }) => {
 
   const handleSelectCategory = (category) => {
     onSelectCategory(category);
-
-    setQuery(category.name); 
+    setQuery(''); 
     setResults([]); 
   };
 
