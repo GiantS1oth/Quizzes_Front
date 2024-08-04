@@ -105,6 +105,10 @@ const AddQuestion = () => {
     }
   };
 
+  const returnBack = () => {
+    navigate(`/current-quiz-detail?quizId=${quizId}`)
+  }
+
   return (
     <div className="container">
       <h1 id="question-header">Вопрос {questionNumber}</h1>
@@ -198,6 +202,7 @@ const AddQuestion = () => {
           value={image} 
           onChange={(e) => setImage(e.target.value)} 
         />
+        <button onClick={returnBack}>Назад</button>
         <button type="submit">Далее</button>
         <button id="save-button" onClick={handleSaveAndReturn}>Сохранить и вернуться</button>
       </form>

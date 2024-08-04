@@ -4,6 +4,7 @@ import './styles.css';
 
 const CurrentQuizDetailed = () => {
   const [quiz, setQuiz] = useState(null);
+  const [currentAuthorId, setCurrentAuthorId] = useState(null);
   const navigate = useNavigate();
   const location = useLocation();
   const query = new URLSearchParams(location.search);
@@ -31,6 +32,11 @@ const CurrentQuizDetailed = () => {
 
         const quizData = await response.json();
         setQuiz(quizData);
+
+        
+        const authorIdFromData = quizData.authorId; 
+        setCurrentAuthorId(authorIdFromData);
+        
       } catch (error) {
         console.error('Ошибка при загрузке деталей теста:', error);
         alert('Не удалось загрузить детали теста.');
@@ -60,19 +66,22 @@ const CurrentQuizDetailed = () => {
     navigate(`/myQuizzes`);
   };
 
+
   return (
     <div id="header">
       {quiz ? (
         <>
           <h1 id="quiz-name">{quiz.name}</h1>
           <p id="quiz-description">{quiz.description}</p>
-          <button id="add-questions-button" onClick={() => navigate(`/addQuestion?quizId=${quizId}`)}>Добавить вопросы</button>
+          {quiz.authorId === currentAuthorId && (
+            <button id="add-questions-button" onClick={() => navigate(`/addQuestion?quizId=${quizId}`)}>Добавить вопросы</button>
+          )}
           <button onClick={openTheory}>Теория</button>
           <button onClick={startQuiz}>Пройти тест</button>
           <button onClick={returnToQuizzes}>Назад</button>
         </>
       ) : (
-        <p>Тест не найден</p>
+        <></>
       )}
     </div>
   );

@@ -18,6 +18,7 @@ import TheoryPage from './Pages/TheoryPage/TheoryPage';
 import CreateCategories from './Pages/CreateCategory/CreateCategory';
 import SearchCategory from './Pages/SearchCategory/SearchCategory';
 import MyFavorites from './Pages/MyFavorites/MyFavorites';
+import GetTop20Categories from './components/GetTop20Categories/GetTop20Categories';
 
 
 
@@ -41,7 +42,8 @@ function App() {
           <Route path='/theory' element={<TheoryPage />} />
           <Route path='/createCategory' element={<CreateCategories />} />
           <Route path='/searchCategory' element={<SearchCategory />} />
-          <Route path='/favorites' element={<MyFavorites/>} />
+          <Route path='/favorites' element={<MyFavorites />} />
+          <Route path='/getTop20' element={<GetTop20Categories/>} />
         </Routes>
       </div>
     </Router>

@@ -133,7 +133,7 @@ const TestPage = () => {
   };
 
   if (loading) {
-    return <p>Загрузка...</p>;
+    return <></>
   }
 
   if (isTestFinished) {
@@ -151,6 +151,10 @@ const TestPage = () => {
   }
 
   const currentQuestion = questions[currentQuestionIndex];
+
+  const returnBack = () => {
+    navigate(`/current-quiz-detail?quizId=${quizId}`)
+  }
 
   return (
     <div className="container">
@@ -203,6 +207,7 @@ const TestPage = () => {
         </div>
         {currentQuestion.image && <img src={currentQuestion.image} alt="Question" />}
       </div>
+      <button onClick={returnBack}>Вернуться</button>
       <button onClick={handleSubmitAnswer}>Ответить</button>
       
     </div>

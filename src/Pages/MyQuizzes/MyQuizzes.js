@@ -60,6 +60,10 @@ function MyQuizzes() {
     }
   };
 
+  const returnBack = () => {
+    navigate('/quizzes')
+  }
+
   return (
     <div>
       <header id="header">
@@ -80,6 +84,7 @@ function MyQuizzes() {
           <p>Нет доступных тестов.</p>
         )}
       </div>
+      <button onClick={returnBack}>Назад</button>
     </div>
   );
 }

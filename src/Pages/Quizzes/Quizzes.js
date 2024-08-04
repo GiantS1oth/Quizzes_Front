@@ -2,6 +2,8 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../styles.css';
 
+import GetTop20Categories from '../../components/GetTop20Categories/GetTop20Categories';
+
 
 
 
@@ -40,7 +42,9 @@ function Quizzes() {
         </div>
       </header>
       <main id="content">
-        {/* Контент страницы будет загружен сюда */}
+       
+          <GetTop20Categories/>
+        
       </main>
     </div>
   );

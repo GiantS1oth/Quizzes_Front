@@ -1,12 +1,20 @@
 import React, { useState, useEffect } from 'react';
-import './styles.css';
+import { useNavigate, useLocation } from 'react-router-dom';
+import './styles.css'; 
 
-const GetTop20Categories = ({ onSelectCategory }) => {
+const GetTop20Categories = () => {
   const [categories, setCategories] = useState([]);
   const [loading, setLoading] = useState(true);
   const [message, setMessage] = useState('');
+  const navigate = useNavigate();
+  const location = useLocation();
+  const query = new URLSearchParams(location.search);
+  const quizId = query.get('quizId');
 
   useEffect(() => {
+    console.log('Location search:', location.search); // Проверяем содержимое location.search
+    console.log('Quiz ID:', quizId); // Проверяем значение quizId
+
     const fetchTopCategories = async () => {
       const token = localStorage.getItem('token');
       
@@ -41,24 +49,28 @@ const GetTop20Categories = ({ onSelectCategory }) => {
     };
 
     fetchTopCategories();
-  }, []);
+  }, [location.search]);
 
-  const handleSelectCategory = (category) => {
-    onSelectCategory(category);
+  const handleSelectQuiz = (category) => {
+    navigate(`/current-quiz-detail?quizId=${category.id}`);
   };
 
   return (
-    <div className="search-results">
+    <div className="top-categories-container">
       {loading && <p>Загрузка...</p>}
       {message && !loading && <p>{message}</p>}
       {!loading && !message && categories.length > 0 && (
-        <ul>
+        <>
           {categories.map((category) => (
-            <li key={category.id} onClick={() => handleSelectCategory(category)}>
+            <button
+              key={category.id}
+              className="top-category-button"
+              onClick={() => handleSelectQuiz(category)}
+            >
               {category.name}
-            </li>
+            </button>
           ))}
-        </ul>
+        </>
       )}
       {!loading && !message && categories.length === 0 && <p>Категории не найдены.</p>}
     </div>

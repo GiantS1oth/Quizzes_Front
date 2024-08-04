@@ -68,6 +68,9 @@ function MyFavorites() {
     }
   };
   
+  const returnBack = () => {
+    navigate('/quizzes')
+  }
 
   return (
     <div className="favorites-container">
@@ -92,6 +95,7 @@ function MyFavorites() {
           <p>Нет избранных тестов.</p>
         )}
       </div>
+      <button onClick={returnBack}>Назад</button>
     </div>
   );
 }

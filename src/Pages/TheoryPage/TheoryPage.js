@@ -66,13 +66,13 @@ function TheoryPage() {
     <div>
       <header>
         <h1>Карточки теста</h1>
-        <button onClick={() => navigate('/quizzes')}>Назад</button>
+        <button onClick={() => navigate(`/current-quiz-detail?quizId=${quizId}`)}>Назад</button>
       </header>
 
       <main>
         <div id="card-container">
           {loading ? (
-            <p>Загрузка...</p>
+            <></>
           ) : error ? (
             <p>Ошибка: {error}</p>
           ) : questions.length > 0 ? (

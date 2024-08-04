@@ -7,19 +7,22 @@
   position: absolute;
   width: 100%;
   z-index: 10;
+  display: flex; 
+  flex-wrap: wrap; 
 }
 
 .top-category-button {
-  display: block;
-  width: 100%;
+  margin: 5px; 
   padding: 10px;
   border: none;
-  background-color: #f8f8f8;
+  border-radius: 40px;
+  background-color: #D4E0FD;
   text-align: left;
   cursor: pointer;
+  white-space: nowrap; 
+  display: inline-block; 
 }
 
 .top-category-button:hover {
-  background-color: #e0e0e0;
+  background-color: #D4E0FD;
 }
-
