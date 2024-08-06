@@ -60,6 +60,12 @@ function Quizzes() {
     }
   };
 
+  const handleLoout = () => {
+    localStorage.removeItem('token');
+    localStorage.removeItem('username');
+    navigate(`/`);
+  }
+
   return (
     <div>
       <header id="header">
@@ -71,6 +77,10 @@ function Quizzes() {
         </div>
       </header>
       <main id="content">
+        <div>
+          <button onClick={handleLoout}>Выход</button>
+        </div>
+        
         <input
           type="text"
           placeholder="Введите запрос для поиска"

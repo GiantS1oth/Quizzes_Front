@@ -5,12 +5,7 @@ body {
   background-color: #f4f4f4;
 }
 
-header {
-  background-color: #333;
-  color: #fff;
-  padding: 10px;
-  text-align: left;
-}
+
 
 button {
   background-color: #007bff;
@@ -42,17 +37,8 @@ main {
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-footer {
-  background-color: #333;
-  color: #fff;
-  text-align: center;
-  padding: 10px;
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-}
 
-/* Стили для контейнера карточек */
+
 #card-container {
   text-align: center;
 }
@@ -61,7 +47,7 @@ footer {
   margin-bottom: 20px;
 }
 
-/* Стили для кнопок */
+
 button {
   padding: 10px 20px;
   font-size: 16px;
@@ -70,8 +56,8 @@ button {
 }
 
 button:disabled {
-  background-color: #d3d3d3; /* Светло-серый цвет для неактивных кнопок */
-  color: #a9a9a9; /* Темно-серый цвет текста для неактивных кнопок */
+  background-color: #d3d3d3; 
+  color: #a9a9a9; 
   cursor: not-allowed;
   border: none;
 }body {
@@ -81,12 +67,7 @@ button:disabled {
    background-color: #f4f4f4;
 }
 
-header {
-  background-color: #f8f8f8;
-  color: #000000;
-  padding: 10px;
-  text-align: center;
-}
+
 
 button {
   background-color: #007bff;
@@ -118,15 +99,6 @@ main {
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-footer {
-  background-color: #333;
-  color: #fff;
-  text-align: center;
-  padding: 10px;
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-}
 
 /* Стили для контейнера карточек */
 #card-container {
