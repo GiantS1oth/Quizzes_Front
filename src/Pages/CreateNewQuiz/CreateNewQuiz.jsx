@@ -15,6 +15,39 @@ const CreateNewQuiz = () => {
 
   const navigate = useNavigate();
 
+  useEffect(() => {
+    const checkToken = async () => {
+      const token = localStorage.getItem('token');
+      if (!token) {
+        
+        navigate('/');
+        return;
+      }
+
+      try {
+        const response = await fetch('http://localhost:8192/quizzes/api/v1/quizzes/checkToken', {
+          method: 'GET',
+          headers: {
+            'Authorization': `Bearer ${token}`
+          }
+        });
+
+        if (response.status !== 200) {
+          
+          localStorage.removeItem('token');
+          navigate('/');
+        }
+      } catch (error) {
+        console.error('Ошибка при проверке токена:', error);
+        alert('Ошибка при проверке токена. Пожалуйста, войдите снова.');
+        localStorage.removeItem('token');
+        navigate('/');
+      }
+    };
+
+    checkToken();
+  }, [navigate]);
+
   const handleSearch = async (query) => {
     if (query.trim() === '') {
       setResults([]);
@@ -98,7 +131,7 @@ const CreateNewQuiz = () => {
 
     if (!token) {
       alert('Вы не авторизованы.');
-      navigate('/login');
+      navigate('/');
       return;
     }
 

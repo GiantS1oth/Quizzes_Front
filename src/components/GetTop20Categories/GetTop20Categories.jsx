@@ -19,7 +19,7 @@ const GetTop20Categories = () => {
       const token = localStorage.getItem('token');
       
       if (!token) {
-        setMessage('Токен не найден. Пожалуйста, авторизуйтесь.');
+        setMessage('Пользователь не авторизирован.');
         setLoading(false);
         return;
       }

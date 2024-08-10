@@ -10,21 +10,38 @@ function MyQuizzes() {
   useEffect(() => {
     const fetchQuizzes = async () => {
       const token = localStorage.getItem('token');
-      const response = await fetch('http://localhost:8192/quizzes/api/v1/quizzes/getAllMyQuiz', {
-        method: 'GET',
-        headers: {
-          'Authorization': `Bearer ${token}`
-        }
-      });
 
-      const data = await response.json();
-      if (Array.isArray(data)) {
-        setQuizzes(data);
+      if (!token) {
+        navigate('/'); // Перенаправляем, если токен отсутствует
+        return;
+      }
+
+      try {
+        const response = await fetch('http://localhost:8192/quizzes/api/v1/quizzes/getAllMyQuiz', {
+          method: 'GET',
+          headers: {
+            'Authorization': `Bearer ${token}`
+          }
+        });
+
+        if (response.status === 401) {
+          // Если токен неверный или истек, перенаправляем пользователя на главную страницу
+          navigate('/');
+          return;
+        }
+
+        const data = await response.json();
+        if (Array.isArray(data)) {
+          setQuizzes(data);
+        }
+      } catch (error) {
+        console.error('Ошибка при загрузке тестов:', error);
+        // В случае ошибки, можно также перенаправить пользователя или вывести сообщение
       }
     };
 
     fetchQuizzes();
-  }, []);
+  }, [navigate]);
 
   const openQuizDetail = (quizId) => {
     navigate(`/current-quiz-detail?quizId=${quizId}`);
@@ -61,8 +78,8 @@ function MyQuizzes() {
   };
 
   const returnBack = () => {
-    navigate('/quizzes')
-  }
+    navigate('/quizzes');
+  };
 
   return (
     <div>
