@@ -32,7 +32,7 @@ const SearchDialog = ({ show, onClose, onSearch, data }) => {
           placeholder="Введите запрос"
           value={query}
           onChange={handleChange}
-          className="search-input"
+          className="search-input-inside"
         />
         <h3>Результаты поиска</h3>
         <ul>

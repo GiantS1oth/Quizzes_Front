@@ -4,7 +4,7 @@
 }
 
 .search-input {
-  width: 100%;
+  width: 1195px;
   padding: 8px;
   box-sizing: border-box;
 }
@@ -31,8 +31,9 @@
 .search-results li {
   padding: 8px;
   cursor: pointer;
+  border-radius: 12px;
 }
 
-.search-results li:hover {
-  background: #b46969;
-}
+/* .search-results li:hover {
+  background: #fff;
+} */

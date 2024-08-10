@@ -9,8 +9,6 @@
 }
 
 .top-category-button {
-  margin: 2px; 
-  padding: 10px;
   border: none;
   border-radius: 40px;
   background-color: #D4E0FD;
@@ -26,20 +24,28 @@
 
 .search-input{
   margin: 25px;
-  max-width: 1180px;
+  max-width: 1295px;
+  width: 1195px;
+  border: 1px solid #2A63F6 ;
+  border-radius: 8px;
+  left: 10px;
+  outline: none;
   
 }
 
 .buttons-container{
   height: 308px;
   width: 1295px;
-  
   border-radius: 12px;
   position: absolute;
   top: 131px;
   right: 28px;
 }
 
+.category-button-container{
+  position: absolute;
+  left: 25px;
+}
 .profile-container{
   position: relative;
   margin: 30px;

@@ -109,7 +109,7 @@ main {
   background: white;
   border: 1px solid #ccc;
   box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-  z-index: 1000;
+  z-index: 100;
 }
 
 .search-results ul {
@@ -209,11 +209,6 @@ background-image: url("/public/Assets/Регистрация.svg");
   height: 417px;
   background-color: #fff;
   border-radius: 30px;
-}
-.search-input{
-  border-radius: 8px;
-  border: 1px solid #A4A7AE;
-  outline: none;
 }
 
 .favorites-button {
