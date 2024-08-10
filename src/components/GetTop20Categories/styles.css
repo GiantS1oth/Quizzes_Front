@@ -1,17 +1,15 @@
-.top-categories-container {
-  margin-top: 10px;
-  border: 1px solid #ccc;
-  background-color: #fff;
-  max-height: 300px;
-  overflow-y: auto;
+ 
+
+.top20{
+  border-radius: 12px;
   position: absolute;
-  width: 100%;
-  display: flex; 
-  flex-wrap: wrap; 
+  top: 487px;
+  right: 20px;
+  width: 1295px;
 }
 
 .top-category-button {
-  margin: 5px; 
+  margin: 2px; 
   padding: 10px;
   border: none;
   border-radius: 40px;
@@ -24,4 +22,42 @@
 
 .top-category-button:hover {
   background-color: #D4E0FD;
+}
+
+.search-input{
+  margin: 25px;
+  max-width: 1180px;
+  
+}
+
+.buttons-container{
+  height: 308px;
+  width: 1295px;
+  
+  border-radius: 12px;
+  position: absolute;
+  top: 131px;
+  right: 28px;
+}
+
+.profile-container{
+  position: relative;
+  margin: 30px;
+  width: 475px;
+  height: 775px;
+  background-color: #fff;
+  border-radius: 12px;
+}
+.header-wrapper{
+    display: flex;
+    height: 100px;
+    flex-direction: column; 
+    justify-content: center; 
+
+}
+.cabinet{
+  height: 22px;
+  width: 266px;
+  background-image: url("/public/Assets/Личный_кабинет.svg");
+
 }

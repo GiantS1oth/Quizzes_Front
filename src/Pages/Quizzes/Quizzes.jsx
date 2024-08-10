@@ -67,21 +67,26 @@ function Quizzes() {
   }
 
   return (
+    
     <div>
-      <header id="header">
+      <div className='header-wrapper'>
+        <div className='cabinet'></div>
+      </div>
+        <div className='profile-container'>
         <h1 id="username">Привет, {localStorage.getItem('username') || 'Гость'}!</h1>
-        <div id="buttons-container">
-          <button onClick={showFavorites}>Избранное</button>
-          <button onClick={showMyQuizzes}>Мои</button>
-          <button onClick={addNewQuiz}>Добавить новый тест</button>
+        <button onClick={handleLoout}>Выход</button>
         </div>
-      </header>
-      <main id="content">
-        <div>
-          <button onClick={handleLoout}>Выход</button>
-        </div>
+        <div id="buttons-container" className='buttons-container'>
+          <button className="button my-quizzes-button" onClick={showMyQuizzes}></button>
         
-        <input
+          <button className="button favorites-button" onClick={showFavorites}></button>
+          
+          <button className="button add-quiz-button" onClick={addNewQuiz}>Добавить новый тест</button>
+</div>
+        <div className='top20'> 
+         
+          <div>
+          <input
           type="text"
           placeholder="Введите запрос для поиска"
           value={searchQuery}
@@ -91,17 +96,17 @@ function Quizzes() {
             handleSearch(value); 
           }}
           className="search-input"
-        />
-        <SearchDialog 
+         />
+         <SearchDialog 
           show={showDialog} 
           onClose={closeSearchDialog} 
           onSearch={handleSearch} 
           data={dialogData}
-        />
-        <div>
-          <GetTop20Categories />
+         />
+           <GetTop20Categories />
+          </div>
         </div>
-      </main>
+     
     </div>
   );
 }

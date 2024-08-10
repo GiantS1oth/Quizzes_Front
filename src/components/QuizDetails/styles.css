@@ -9,15 +9,15 @@ body {
   text-align: center;
 }
 
-input {
+/* input {
   display: block;
   width: 100%;
   padding: 10px;
   margin: 10px 0;
   box-sizing: border-box;
-}
+} */
 
-button {
+/* button {
   padding: 10px 20px;
   background-color: #007BFF;
   color: #fff;
@@ -27,7 +27,7 @@ button {
 
 button:hover {
   background-color: #0056b3;
-}
+} */
 
 .error {
   color: red;

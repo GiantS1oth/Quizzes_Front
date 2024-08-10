@@ -16,8 +16,8 @@ function HomePage() {
     <div className='background'>
   <header>
     <div className='logo-container'>
-      <img src="\Assets\logo.svg" alt="Q logo" className="logo" />
-      <img src="\Assets\Vector.svg" alt="Q logo" className="logo-letter" /> 
+      <img src="\Assets\vector.svg" alt="Q logo" className="logo" />
+      <img src="\Assets\uizzes.svg" alt="Q logo" className="logo-letter" /> 
     </div>
     <div className="auth-buttons">
       <button className="register-button" onClick={() => navigate('/register')}>Зарегистрироваться&nbsp;
@@ -49,7 +49,7 @@ function HomePage() {
       </div>
     </div>
     <section className="current-week">
-      <h1>Актуальные на этой неделе</h1>
+      <img src="\Assets\Актуальные на этой неделе_.svg" alt="week-actual" className='week-actual'/>
       <div className="current-week-items">
         <div className="item black"></div>
         <div className="item blue"></div>
@@ -57,9 +57,6 @@ function HomePage() {
       </div>
     </section>
   </main>
-  <footer className='footer'>
-  ©2024 Quizzes Team 
-  </footer>
 </div>
     
   );

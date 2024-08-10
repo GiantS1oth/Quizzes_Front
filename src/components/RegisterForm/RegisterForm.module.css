@@ -1,0 +1,86 @@
+html, body {
+  height: 100vh;
+  margin: 0;
+  padding: 0;
+  font-size: 16px; 
+}
+
+.registercontainer {
+  width: 100vw; 
+  max-width: 100%;
+  margin: 0 auto; 
+  padding: 0;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column; 
+  
+}
+
+.regInput {
+  width: 100%; 
+  padding: 15px;
+  margin: 15px 0;
+  box-sizing: border-box;
+  border: 1px solid #A4A7AE;
+  border-radius: 8px;
+  outline: none;
+  font-size: 16px;
+}
+
+.regButton {
+  width: 100%; 
+  padding: 15px 20px;
+  background-color: #007BFF;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  border-radius: 8px; 
+  box-sizing: border-box;
+  display: block;
+  margin: 15px 0;
+  font-size: 16px;
+}
+
+.regButton:hover {
+  background-color: #0056b3;
+}
+
+.error {
+  color: red;
+  margin-bottom: 15px;
+  font-size: 16px;
+}
+
+.relogLinks {
+  margin-bottom: 20px; 
+  display: flex;
+  width: 1080px;
+}
+
+.loginLink {
+  font-size: 30px;
+  font-weight: bold;
+  margin: 0; 
+  text-decoration: none; 
+  margin-left: 0px; 
+}
+
+.registerLink {
+  
+  font-size: 30px;
+  font-weight: bold;
+  margin: 0; 
+  text-decoration: none; 
+  color: #007BFF; 
+  margin-left: 120px;
+}
+
+.loginLink {
+  color: #000; 
+}
+
+p{
+  font-size: 20px;
+  margin: 0;
+}
+

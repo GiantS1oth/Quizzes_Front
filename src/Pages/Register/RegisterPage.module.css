@@ -1,0 +1,46 @@
+
+.customBackground {
+  background-image: url("/public/Assets/background.svg"); 
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  height: 100vh; 
+}
+
+.registerPageContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: stretch; 
+  height: 100vh; 
+  width: 100vw; 
+  box-sizing: border-box; 
+}
+
+.infoContainer, .formContainer {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center; 
+  align-items: center;
+  max-width: 50%; 
+  box-sizing: border-box; 
+  padding: 20px;
+}
+
+
+
+.formContainer {
+  background-color: #fff;
+}
+
+.image {
+  width: 100%;
+  max-width: 300px;
+  height: auto;
+}
+
+.text {
+  margin-top: 10px;
+  font-size: 18px;
+  text-align: center;
+}
