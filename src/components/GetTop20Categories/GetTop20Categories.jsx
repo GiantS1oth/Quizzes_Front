@@ -57,7 +57,6 @@ const GetTop20Categories = () => {
 
   return (
     <div className="top-categories-container">
-      {loading && <p>Загрузка...</p>}
       {message && !loading && <p>{message}</p>}
       {!loading && !message && categories.length > 0 && (
         <>

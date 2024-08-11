@@ -118,10 +118,10 @@ function Quizzes() {
         <div id="buttons-container" className='buttons-container'>
         <button className="button my-quizzes-button" onClick={showMyQuizzes}
         disabled={!isTokenValid}
-        >Мои тесты</button>
+        ></button>
         <button className="button favorites-button" onClick={showFavorites}
         disabled={!isTokenValid}
-        >Избранное</button>
+        ></button>
           <button
             className="button add-quiz-button"
             onClick={addNewQuiz}

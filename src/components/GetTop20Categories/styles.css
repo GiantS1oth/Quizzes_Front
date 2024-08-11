@@ -9,6 +9,10 @@
 }
 
 .top-category-button {
+  position: relative;
+  top: 75px;
+  left: 0px;
+  margin-bottom: 10px;
   border: none;
   border-radius: 40px;
   background-color: #D4E0FD;
@@ -22,16 +26,17 @@
   background-color: #D4E0FD;
 }
 
-.search-input{
+/* .search-input{
   margin: 25px;
   max-width: 1295px;
   width: 1195px;
+  padding: 8px;
   border: 1px solid #2A63F6 ;
   border-radius: 8px;
   left: 10px;
   outline: none;
   
-}
+} */
 
 .buttons-container{
   height: 308px;

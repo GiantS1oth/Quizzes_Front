@@ -14,7 +14,7 @@ const SearchCategoryByName = ({ onSelectCategory }) => {
 
     try {
       const token = localStorage.getItem('token');
-      const response = await fetch(`http://localhost:8192/quizzes/api/v1/quizzes/searchByCategories?category_name=${query}`, {
+      const response = await fetch(`http://localhost:8192/quizzes/api/v1/quizzes/getQuizByCategory?category_id=${query}`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',

@@ -26,7 +26,7 @@ const SearchDialog = ({ show, onClose, onSearch, data }) => {
     <div className="dialog-overlay">
       <div className="dialog-content">
         <button className="close-button" onClick={onClose}>X</button>
-        <h2>Поиск</h2>
+        <h2>Поиск Quizzes</h2>
         <input
           type="text"
           placeholder="Введите запрос"

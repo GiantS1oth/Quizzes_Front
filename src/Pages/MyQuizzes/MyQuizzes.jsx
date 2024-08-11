@@ -64,27 +64,43 @@ function MyQuizzes() {
     navigate('/quizzes')
   }
 
+  const handleLogout = () => {
+    localStorage.removeItem('token');
+    localStorage.removeItem('username');
+    navigate(`/`);
+  }
+
   return (
     <div>
-      <header id="header">
-        <h1>Мои тесты</h1>
-        {message && <p>{message}</p>}
-      </header>
-      <div id="quizzesList">
-        {quizzes.length > 0 ? (
-          quizzes.map((quiz) => (
-            <div key={quiz.id} className="quiz-item">
-              <h2>{quiz.name}</h2>
-              <p>{quiz.description}</p>
-              <button onClick={() => openQuizDetail(quiz.id)}>Открыть детали</button>
-              <button onClick={() => addToFavorites(quiz.id)}>Добавить в избранное</button>
-            </div>
-          ))
-        ) : (
-          <p>Нет доступных тестов.</p>
-        )}
+       <div className='header-wrapper-myquizzes'>
       </div>
-      <button onClick={returnBack}>Назад</button>
+      <div className='profile-container'>
+          <h1 id="username">Привет, {localStorage.getItem('username') || 'Гость'}!</h1>
+          <button onClick={handleLogout}>Выход</button>
+        </div>
+      <div id="quizzes-list" className='quizzes-list'>
+        <button className='return-button' onClick={returnBack}></button>
+        <div className='tests-icon'></div>
+        <div className='quiz-items'>
+  {quizzes.length > 0 ? (
+    quizzes.map((quiz) => (
+      <div key={quiz.id} className="quiz-item" onClick={() => openQuizDetail(quiz.id)}>
+        <p>{quiz.name}</p>
+        <div className='div-category'>{quiz.categoryName}</div>
+        <button
+          className='add-favorites-button'
+          onClick={(event) => {
+            event.stopPropagation(); 
+            addToFavorites(quiz.id);
+          }}
+        ></button>
+      </div>
+    ))
+  ) : (
+    <p>Нет доступных тестов.</p>
+  )}
+</div>
+      </div>
     </div>
   );
 }
