@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-// import './styles.css';
+
 
 function MyFavorites() {
   const [favorites, setFavorites] = useState([]);
@@ -42,60 +42,41 @@ function MyFavorites() {
   const openQuizDetail = (quizId) => {
     navigate(`/current-quiz-detail?quizId=${quizId}`);
   };
-
-  const removeFromFavorites = async (quizId) => {
-    const token = localStorage.getItem('token');
-    try {
-      const response = await fetch(`http://localhost:8192/quizzes/api/v1/quizzes/deleteFromFavoritesByQuizId?quiz_id=${quizId}`, {
-        method: 'DELETE',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${token}`
-        }
-       
-      });
-  
-      if (!response.ok) {
-        const errorText = await response.text();
-        throw new Error(`Ошибка сети: ${response.status} ${response.statusText} - ${errorText}`);
-      }
-  
-      
-      setFavorites(favorites.filter(quiz => quiz.id !== quizId));
-    } catch (error) {
-      console.error('Ошибка:', error);
-      setMessage(`Ошибка удаления теста из избранного: ${error.message}`);
-    }
-  };
   
   const returnBack = () => {
     navigate('/quizzes')
   }
 
+  const handleLogout = () => {
+    localStorage.removeItem('token');
+    localStorage.removeItem('username');
+    navigate(`/`);
+  }
+
   return (
-    <div className="favorites-container">
-      <header id="header">
-        <h1>Мои Избранные Тесты</h1>
-        {message && <p className="message">{message}</p>}
-      </header>
+    <div>
+      <div className='header-wrapper-myquizzes'></div>
+      <div className='profile-container'>
+          <h1 id="username">Привет, {localStorage.getItem('username')}!</h1>
+          <button onClick={handleLogout}>Выход</button>
+      </div>
+      <div className='my-favorites-container'>
+      <button className='return-button' onClick={returnBack}></button>
       <div className="favorites-list">
         {favorites.length > 0 ? (
           favorites.map((quiz) => (
             <div key={quiz.id} className="quiz-item">
               <div className="quiz-content" onClick={() => openQuizDetail(quiz.id)}>
-                <h2>{quiz.name}</h2>
-                <p>{quiz.description}</p>
-              </div>
-              <div className="actions">
-                <button className="remove-button" onClick={() => removeFromFavorites(quiz.id)}>×</button>
+                <p>{quiz.name}</p>
               </div>
             </div>
           ))
         ) : (
           <p>Нет избранных тестов.</p>
         )}
-      </div>
-      <button onClick={returnBack}>Назад</button>
+        </div>
+        </div>
+      
     </div>
   );
 }

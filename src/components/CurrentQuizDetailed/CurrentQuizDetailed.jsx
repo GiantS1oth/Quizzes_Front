@@ -66,23 +66,35 @@ const CurrentQuizDetailed = () => {
     navigate(`/myQuizzes`);
   };
 
-
+  const handleLogout = () => {
+    localStorage.removeItem('token');
+    localStorage.removeItem('username');
+    navigate(`/`);
+  }
+ 
   return (
-    <div id="header">
+    <div>
+      <div className='header-wrapper-myquizzes'></div>
+      <div className='profile-container'>
+          <h1 id="username">Привет, {localStorage.getItem('username') || 'Гость'}!</h1>
+          <button onClick={handleLogout}>Выход</button>
+        </div>
+      <div className='quiz-detailed-container'>
+      <button className='return-button' onClick={returnToQuizzes}></button>
       {quiz ? (
         <>
           <h1 id="quiz-name">{quiz.name}</h1>
           <p id="quiz-description">{quiz.description}</p>
           {quiz.authorId === currentAuthorId && (
-            <button id="add-questions-button" onClick={() => navigate(`/addQuestion?quizId=${quizId}`)}>Добавить вопросы</button>
+            <div id="add-questions-button" className='add-questions-button' onClick={() => navigate(`/addQuestion?quizId=${quizId}`)}>Добавить вопросы</div>
           )}
           <button onClick={openTheory}>Теория</button>
           <button onClick={startQuiz}>Пройти тест</button>
-          <button onClick={returnToQuizzes}>Назад</button>
         </>
       ) : (
         <></>
       )}
+      </div>
     </div>
   );
 };

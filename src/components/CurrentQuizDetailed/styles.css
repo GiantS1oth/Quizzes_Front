@@ -53,3 +53,40 @@ main {
   margin-bottom: 20px;
 }
 
+.quiz-detailed-container{
+  width: 1295px;
+  height: 775px;
+  background-color: #fff;
+  border-radius: 12px;
+  
+}
+
+.add-questions-button {
+  display: flex; 
+  align-items: center; 
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: right center; 
+  border: none;
+  height: 30px;
+  width: 214px; 
+  text-decoration: underline;
+  font-size: 20px;
+  cursor: pointer; 
+}
+
+.add-questions-button:hover{
+  color: #70A8FF;
+}
+
+.add-questions-button::after {
+  content: "";
+  display: inline-block;
+  width: 30px; 
+  height: 30px; 
+  background-image: url('/public/Assets/circled_plus_icon.svg');
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  margin-left: 10px; 
+}

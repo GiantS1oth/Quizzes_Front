@@ -199,6 +199,25 @@ header {
   flex-direction: column;
 }
 
+.quiz-detailed-container{
+  position: absolute;
+  border-radius: 12px;
+  top: 130px;
+  right: 40px;
+}
+
+.my-favorites-container{
+  position: absolute;
+  border-radius: 12px;
+  top: 130px;
+  right: 40px;
+  width: 1295px;
+  height: 775px;
+  background-color: #fff;
+  display: flex;
+  flex-direction: column;
+}
+
 .quiz-items {
   flex: 1;
   overflow-y: auto;
@@ -274,6 +293,9 @@ header {
   overflow: hidden;
 }
 
+.add-favorites-button.active {
+  background-image: url('/public/Assets/favorites_button_clicked.svg');
+}
 .return-button {
   margin: 10px;
   margin-top: 20px;
