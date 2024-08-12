@@ -43,7 +43,6 @@ const TestPage = () => {
         setRoundId(data.roundId);
         setLoading(false);
         
-        
         if (startTest) {
           timerRef.current = setInterval(() => {
             setElapsedTime(prevTime => prevTime + 1);
@@ -57,8 +56,6 @@ const TestPage = () => {
     };
 
     fetchQuizData();
-
-    
     return () => clearInterval(timerRef.current);
   }, [quizId, startTest]);
 
@@ -121,10 +118,8 @@ const TestPage = () => {
   };
 
   const formatDuration = (seconds) => {
-    const hours = Math.floor(seconds / 3600);
-    const minutes = Math.floor((seconds % 3600) / 60);
+    const minutes = Math.floor(seconds / 60);
     const secs = seconds % 60;
-
     return `${minutes.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
   };
 
@@ -156,60 +151,85 @@ const TestPage = () => {
     navigate(`/current-quiz-detail?quizId=${quizId}`)
   }
 
+  const handleLogout = () => {
+    localStorage.removeItem('token');
+    localStorage.removeItem('username');
+    navigate(`/`);
+  }
+
   return (
-    <div className="container">
-      <h1>{folderName}</h1>
-      <div>
+    <div >
+      <div className='header-wrapper-myquizzes'></div>
+      <div className='profile-container'>
+          <h1 id="username">Привет, {localStorage.getItem('username')}!</h1>
+          <button onClick={handleLogout}>Выход</button>
+      </div>
+      
+      <div className='test-page-container'>
+      <button className='return-button' onClick={returnBack}></button>
+        <h1>{folderName}</h1>
         <p>{currentQuestion.questionText}</p>
-        <div>
-          <label>
-            <input 
-              type="radio" 
-              value="1" 
-              checked={selectedAnswer === '1'} 
-              onChange={() => handleAnswerSelect('1')} 
-            />
-            {currentQuestion.text1}
-          </label>
-        </div>
-        <div>
-          <label>
-            <input 
-              type="radio" 
-              value="2" 
-              checked={selectedAnswer === '2'} 
-              onChange={() => handleAnswerSelect('2')} 
-            />
-            {currentQuestion.text2}
-          </label>
-        </div>
-        <div>
-          <label>
-            <input 
-              type="radio" 
-              value="3" 
-              checked={selectedAnswer === '3'} 
-              onChange={() => handleAnswerSelect('3')} 
-            />
-            {currentQuestion.text3}
-          </label>
-        </div>
-        <div>
-          <label>
-            <input 
-              type="radio" 
-              value="4" 
-              checked={selectedAnswer === '4'} 
-              onChange={() => handleAnswerSelect('4')} 
-            />
-            {currentQuestion.text4}
-          </label>
+        <div className="radio-columns">
+          <div className="column">
+            <div>
+              <input 
+                className="choose-button"
+                type="radio" 
+                id="answer1"
+                value="1" 
+                checked={selectedAnswer === '1'} 
+                onChange={() => handleAnswerSelect('1')} 
+              />
+              <label className="custom-radio-label" htmlFor="answer1">
+                {currentQuestion.text1}
+              </label>
+            </div>
+            <div>
+              <input 
+                className="choose-button"
+                type="radio" 
+                id="answer2"
+                value="2" 
+                checked={selectedAnswer === '2'} 
+                onChange={() => handleAnswerSelect('2')} 
+              />
+              <label className="custom-radio-label" htmlFor="answer2">
+                {currentQuestion.text2}
+              </label>
+            </div>
+          </div>
+          <div className="column">
+            <div>
+              <input 
+                className="choose-button"
+                type="radio" 
+                id="answer3"
+                value="3" 
+                checked={selectedAnswer === '3'} 
+                onChange={() => handleAnswerSelect('3')} 
+              />
+              <label className="custom-radio-label" htmlFor="answer3">
+                {currentQuestion.text3}
+              </label>
+            </div>
+            <div>
+              <input 
+                className="choose-button"
+                type="radio" 
+                id="answer4"
+                value="4" 
+                checked={selectedAnswer === '4'} 
+                onChange={() => handleAnswerSelect('4')}
+              />
+              <label className="custom-radio-label" htmlFor="answer4">
+                {currentQuestion.text4}
+              </label>
+            </div>
+          </div>
         </div>
         {currentQuestion.image && <img src={currentQuestion.image} alt="Question" />}
+        <button onClick={handleSubmitAnswer}>Ответить</button>
       </div>
-      <button onClick={returnBack}>Вернуться</button>
-      <button onClick={handleSubmitAnswer}>Ответить</button>
-      
     </div>
   );
 };
