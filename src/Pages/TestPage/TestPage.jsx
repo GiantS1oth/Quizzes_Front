@@ -2,14 +2,15 @@ import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import '../styles.css';
 
-const TestPage = () => {
+function TestPage() {
   const navigate = useNavigate();
   const location = useLocation();
   const query = new URLSearchParams(location.search);
   const quizId = query.get('quizId');
-  const startTest = query.get('startTest') === 'true'; 
+  const startTest = query.get('startTest') === 'true';
 
   const [folderName, setFolderName] = useState('');
+  const [categoryName, setCategoryName] = useState(''); 
   const [questions, setQuestions] = useState([]);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [selectedAnswer, setSelectedAnswer] = useState(null);
@@ -18,39 +19,57 @@ const TestPage = () => {
   const [feedback, setFeedback] = useState('');
   const [isTestFinished, setIsTestFinished] = useState(false);
   const [loading, setLoading] = useState(true);
-  const [elapsedTime, setElapsedTime] = useState(0); 
-  const timerRef = useRef(null); 
+  const [elapsedTime, setElapsedTime] = useState(0);
+  const timerRef = useRef(null);
 
   useEffect(() => {
     const fetchQuizData = async () => {
       setLoading(true);
       try {
         const token = localStorage.getItem('token');
-        const response = await fetch(`http://localhost:8192/quizzes/api/v1/quizzes/run?quiz_id=${quizId}`, {
+
+        
+        const quizResponse = await fetch(`http://localhost:8192/quizzes/api/v1/quizzes/run?quiz_id=${quizId}`, {
           method: 'POST',
           headers: {
             'Authorization': `Bearer ${token}`
           }
         });
 
-        if (!response.ok) {
+        if (!quizResponse.ok) {
           throw new Error('Ошибка получения вопросов');
         }
 
-        const data = await response.json();
-        setFolderName(data.folderName);
-        setQuestions(data.questions);
-        setRoundId(data.roundId);
-        setLoading(false);
+        const quizData = await quizResponse.json();
+        setFolderName(quizData.folderName || '');
+        setQuestions(quizData.questions || []);
+        setRoundId(quizData.roundId || null);
         
         if (startTest) {
           timerRef.current = setInterval(() => {
             setElapsedTime(prevTime => prevTime + 1);
           }, 1000);
         }
+
+        
+        const categoryResponse = await fetch(`http://localhost:8192/quizzes/api/v1/quizzes/getQuizById?quiz_id=${quizId}`, {
+          method: 'GET',
+          headers: {
+            'Authorization': `Bearer ${token}`
+          }
+        });
+
+        if (!categoryResponse.ok) {
+          throw new Error('Ошибка получения информации о категории');
+        }
+
+        const categoryData = await categoryResponse.json();
+        setCategoryName(categoryData.categoryName || ''); 
+
+        setLoading(false);
       } catch (error) {
-        console.error('Ошибка при загрузке вопросов:', error);
-        alert('Не удалось загрузить вопросы.');
+        console.error('Ошибка при загрузке данных:', error);
+        alert('Не удалось загрузить данные.');
         setLoading(false);
       }
     };
@@ -78,7 +97,7 @@ const TestPage = () => {
       }
     ]);
 
-    setSelectedAnswer(null); 
+    setSelectedAnswer(null);
 
     if (currentQuestionIndex < questions.length - 1) {
       setCurrentQuestionIndex(prevIndex => prevIndex + 1);
@@ -89,7 +108,7 @@ const TestPage = () => {
 
   const finishQuiz = async () => {
     try {
-      clearInterval(timerRef.current); 
+      clearInterval(timerRef.current);
       const token = localStorage.getItem('token');
       const response = await fetch('http://localhost:8192/quizzes/api/v1/quizzes/finish', {
         method: 'PATCH',
@@ -109,7 +128,13 @@ const TestPage = () => {
       }
 
       const result = await response.json();
-      setFeedback(`Тест завершен!  Продолжительность: ${formatDuration(elapsedTime)}. Счет: ${result.score}`);
+      setFeedback(
+        <>
+          Поздравляем вы прошли тест!<br />
+          Продолжительность: {formatDuration(elapsedTime)}<br />
+          Счет: {result.score}
+        </>
+      );
       setIsTestFinished(true);
     } catch (error) {
       console.error('Ошибка при завершении теста:', error);
@@ -127,16 +152,17 @@ const TestPage = () => {
     navigate(`/current-quiz-detail?quizId=${quizId}`);
   };
 
-  if (loading) {
-    return <></>
-  }
-
   if (isTestFinished) {
     return (
-      <div>
+      <div className='finish-page'>
+        <div className='header-wrapper-myquizzes'>
+        
+        </div>
+      <div className='test-finished'>
         <h1>{folderName}</h1>
         <p>{feedback}</p>
         <button onClick={handleFinishTest}>Вернуться к деталям теста</button>
+        </div>
       </div>
     );
   }
@@ -148,27 +174,32 @@ const TestPage = () => {
   const currentQuestion = questions[currentQuestionIndex];
 
   const returnBack = () => {
-    navigate(`/current-quiz-detail?quizId=${quizId}`)
-  }
+    navigate(`/current-quiz-detail?quizId=${quizId}`);
+  };
 
   const handleLogout = () => {
     localStorage.removeItem('token');
     localStorage.removeItem('username');
     navigate(`/`);
-  }
+  };
 
   return (
-    <div >
-      <div className='header-wrapper-myquizzes'></div>
+    <div>
+      <div className='header-wrapper-myquizzes'>
+        <h1>{folderName}</h1>
+      </div>
       <div className='profile-container'>
-          <h1 id="username">Привет, {localStorage.getItem('username')}!</h1>
-          <button onClick={handleLogout}>Выход</button>
+        <h1 id="username">Привет, {localStorage.getItem('username')}!</h1>
+        <button onClick={handleLogout}>Выход</button>
       </div>
       
       <div className='test-page-container'>
-      <button className='return-button' onClick={returnBack}></button>
-        <h1>{folderName}</h1>
-        <p>{currentQuestion.questionText}</p>
+        <button className='return-button' onClick={returnBack}></button>
+        <div className='question-text-container'>
+          <h1 className='question-number-text'>Вопрос: {currentQuestionIndex + 1}</h1>
+          <div className='div-category-for'>{categoryName}</div>
+          <p className='questin-text-inside'>{currentQuestion.questionText}</p>
+        </div>
         <div className="radio-columns">
           <div className="column">
             <div>
@@ -181,7 +212,7 @@ const TestPage = () => {
                 onChange={() => handleAnswerSelect('1')} 
               />
               <label className="custom-radio-label" htmlFor="answer1">
-                {currentQuestion.text1}
+                <span>{currentQuestion.text1}</span>
               </label>
             </div>
             <div>
@@ -194,7 +225,7 @@ const TestPage = () => {
                 onChange={() => handleAnswerSelect('2')} 
               />
               <label className="custom-radio-label" htmlFor="answer2">
-                {currentQuestion.text2}
+                <span>{currentQuestion.text2}</span>
               </label>
             </div>
           </div>
@@ -209,7 +240,7 @@ const TestPage = () => {
                 onChange={() => handleAnswerSelect('3')} 
               />
               <label className="custom-radio-label" htmlFor="answer3">
-                {currentQuestion.text3}
+                <span>{currentQuestion.text3}</span>
               </label>
             </div>
             <div>
@@ -222,13 +253,15 @@ const TestPage = () => {
                 onChange={() => handleAnswerSelect('4')}
               />
               <label className="custom-radio-label" htmlFor="answer4">
-                {currentQuestion.text4}
+                <span>{currentQuestion.text4}</span>
               </label>
             </div>
           </div>
         </div>
         {currentQuestion.image && <img src={currentQuestion.image} alt="Question" />}
-        <button onClick={handleSubmitAnswer}>Ответить</button>
+        <button className='test-answer-button' onClick={handleSubmitAnswer}>
+          {currentQuestionIndex < questions.length - 1 ? 'Следующий вопрос' : 'Ответить'}
+        </button>
       </div>
     </div>
   );

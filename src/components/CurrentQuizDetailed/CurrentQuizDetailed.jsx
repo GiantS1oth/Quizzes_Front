@@ -82,15 +82,15 @@ const CurrentQuizDetailed = () => {
       <div className='quiz-detailed-container'>
       <button className='return-button' onClick={returnToQuizzes}></button>
       {quiz ? (
-        <>
-          <h1 id="quiz-name">{quiz.name}</h1>
-          <p id="quiz-description">{quiz.description}</p>
+        <div className='quiz-inside-detailed'>
+          <h1 id="quiz-name" className='quiz-name-detailed-quiz'>{quiz.name}</h1>
+          <p id="quiz-description" className='quiz-description-detailed-quiz'>{quiz.description}</p>
           {quiz.authorId === currentAuthorId && (
             <div id="add-questions-button" className='add-questions-button' onClick={() => navigate(`/addQuestion?quizId=${quizId}`)}>Добавить вопросы</div>
           )}
           <button onClick={openTheory}>Теория</button>
           <button onClick={startQuiz}>Пройти тест</button>
-        </>
+        </div>
       ) : (
         <></>
       )}
