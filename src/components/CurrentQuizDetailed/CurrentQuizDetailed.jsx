@@ -4,12 +4,18 @@ import './styles.css';
 
 const CurrentQuizDetailed = () => {
   const [quiz, setQuiz] = useState(null);
-  const [currentAuthorId, setCurrentAuthorId] = useState(null);
+  const [questions, setQuestions] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const [expandedQuestionIndex, setExpandedQuestionIndex] = useState(null); 
+  const [isActive, setIsActive] = useState(false);
+  
   const navigate = useNavigate();
   const location = useLocation();
   const query = new URLSearchParams(location.search);
   const quizId = query.get('quizId');
-  const token = localStorage.getItem('token');
+  const username = localStorage.getItem('username'); 
+  
 
   useEffect(() => {
     const fetchQuizDetails = async () => {
@@ -22,7 +28,7 @@ const CurrentQuizDetailed = () => {
         const response = await fetch(`http://localhost:8192/quizzes/api/v1/quizzes/getQuizById?quiz_id=${quizId}`, {
           method: 'GET',
           headers: {
-            'Authorization': `Bearer ${token}`
+            'Authorization': `Bearer ${localStorage.getItem('token')}`
           }
         });
 
@@ -32,10 +38,6 @@ const CurrentQuizDetailed = () => {
 
         const quizData = await response.json();
         setQuiz(quizData);
-
-        
-        const authorIdFromData = quizData.authorId; 
-        setCurrentAuthorId(authorIdFromData);
         
       } catch (error) {
         console.error('Ошибка при загрузке деталей теста:', error);
@@ -44,7 +46,43 @@ const CurrentQuizDetailed = () => {
     };
 
     fetchQuizDetails();
-  }, [quizId, token]);
+  }, [quizId]);
+
+  useEffect(() => {
+    const fetchQuestions = async () => {
+      setLoading(true);
+      setError(null);
+
+      try {
+        const response = await fetch(`http://localhost:8192/quizzes/api/v1/quizzes/getCardsByQuizId?quiz_id=${quizId}`, {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${localStorage.getItem('token')}`
+          }
+        });
+
+        if (response.ok) {
+          const data = await response.json();
+          setQuestions(data);
+        } else {
+          const errorData = await response.json();
+          setError(errorData.message || 'Неизвестная ошибка');
+        }
+      } catch (error) {
+        console.error('Ошибка при загрузке вопросов:', error);
+        setError('Не удалось загрузить вопросы.');
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchQuestions();
+  }, [quizId]);
+
+  const toggleQuestion = (index) => {
+    setExpandedQuestionIndex(expandedQuestionIndex === index ? null : index);
+  };
 
   const openTheory = () => {
     if (!quizId) {
@@ -71,29 +109,52 @@ const CurrentQuizDetailed = () => {
     localStorage.removeItem('username');
     navigate(`/`);
   }
- 
+
   return (
     <div>
       <div className='header-wrapper-myquizzes'></div>
       <div className='profile-container'>
-          <h1 id="username">Привет, {localStorage.getItem('username') || 'Гость'}!</h1>
-          <button onClick={handleLogout}>Выход</button>
-        </div>
+        <h1 id="username">Привет, {username}!</h1>
+        <button onClick={handleLogout}>Выход</button>
+      </div>
       <div className='quiz-detailed-container'>
-      <button className='return-button' onClick={returnToQuizzes}></button>
-      {quiz ? (
-        <div className='quiz-inside-detailed'>
-          <h1 id="quiz-name" className='quiz-name-detailed-quiz'>{quiz.name}</h1>
-          <p id="quiz-description" className='quiz-description-detailed-quiz'>{quiz.description}</p>
-          {quiz.authorId === currentAuthorId && (
-            <div id="add-questions-button" className='add-questions-button' onClick={() => navigate(`/addQuestion?quizId=${quizId}`)}>Добавить вопросы</div>
-          )}
-          <button onClick={openTheory}>Теория</button>
-          <button onClick={startQuiz}>Пройти тест</button>
-        </div>
-      ) : (
-        <></>
-      )}
+        <button className='return-button' onClick={returnToQuizzes}></button>
+        {quiz ? (
+          <div className='quiz-inside-detailed'>
+            <h1 id="quiz-name" className='quiz-name-detailed-quiz'>{quiz.name}</h1>
+            <div className='div-category-for-currentquiz'>{quiz.categoryName}</div>
+            <div className='displayed-questions'>
+              {loading ? (
+              <></>
+              ) : error ? (
+                <p>Ошибка: {error}</p>
+              ) : questions.length > 0 ? (
+                questions.map((question, index) => (
+                  <div
+                    key={question.id}
+                    className={`question-item ${expandedQuestionIndex === index ? 'expanded' : ''}`}
+                    onClick={() => toggleQuestion(index)}
+                    
+                  >
+                    <p style={{ margin: 0, }}>Вопрос {index + 1}</p>
+                    {expandedQuestionIndex === index && (
+                      <p style={{ marginTop: '5px' }}>{question.questionText}</p>
+                    )}
+                  </div>
+                ))
+              ) : (
+                <></>
+              )}
+            </div>
+            {quiz.authorName === username && (
+              <div id="add-questions-button" className='add-questions-button' onClick={() => navigate(`/addQuestion?quizId=${quizId}`)}>Добавить вопросы</div>
+            )}
+            <button onClick={openTheory}>Теория</button>
+            <button onClick={startQuiz}>Пройти тест</button>
+          </div>
+        ) : (
+          <></>
+        )}
       </div>
     </div>
   );

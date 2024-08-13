@@ -168,7 +168,7 @@ function TestPage() {
   }
 
   if (questions.length === 0) {
-    return <p>Нет вопросов для отображения</p>;
+    return <></>;
   }
 
   const currentQuestion = questions[currentQuestionIndex];
