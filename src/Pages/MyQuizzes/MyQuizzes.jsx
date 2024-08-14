@@ -92,7 +92,7 @@ function MyQuizzes() {
     <div>
       <div className='header-wrapper-myquizzes'></div>
       <div className='profile-container'>
-        <h1 id="username">Привет, {localStorage.getItem('username') || 'Гость'}!</h1>
+        <h1 id="username">Привет, {localStorage.getItem('username')}!</h1>
         <button onClick={handleLogout}>Выход</button>
       </div>
       <div id="quizzes-list" className='quizzes-list'>

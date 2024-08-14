@@ -524,14 +524,14 @@ color: #2A63F6;
   padding: 15px;
   transition: height 0.3s ease;
   direction: underline;
-  /* box-shadow: 1px 2px 2px 1px rgba(0,0,0,0.1); */
+ 
 
 }
 
 .question-item.expanded {
   color: #007bff;
   height: auto;
-  /* box-shadow: 1px 2px 2px 1px rgba(0,0,0,0.1); */
+  
 }
 
 .question-item h3 {
@@ -547,9 +547,10 @@ color: #2A63F6;
   
   overflow-y:auto;
   scrollbar-width: none;
-  height: 500px;
+  max-height: 500px;
   padding-right: 4px;
 }
-.question-p{
-  
+
+.favorites-button-qd{
+
 }
