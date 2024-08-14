@@ -577,3 +577,16 @@ left: 1170px;
   flex-direction: column;
   box-shadow: 0 4px 8px rgba(0,0,0,0.1);  
 }
+
+.add-question-container {
+  position: absolute;
+  border-radius: 12px;
+  top: 130px;
+  right: 40px;
+  width: 1295px;
+  height: 775px;
+  background-color: #fff;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1); 
+}

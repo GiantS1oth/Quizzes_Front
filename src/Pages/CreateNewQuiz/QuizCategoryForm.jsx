@@ -133,6 +133,7 @@ const QuizCategoryForm = ({ formData, setFormData, handleSubmit }) => {
           </ul>
         </div>
       )}
+      
     </div>
   );
 };

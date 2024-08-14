@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import '../styles.css';
 
-const AddQuestion = () => {
+function AddQuestion() {
   const navigate = useNavigate();
   const location = useLocation();
   const query = new URLSearchParams(location.search);
@@ -13,6 +13,7 @@ const AddQuestion = () => {
   const [rightAnswer, setRightAnswer] = useState('');
   const [image, setImage] = useState('');
   const [questionNumber, setQuestionNumber] = useState(1);
+  const username = localStorage.getItem('username');
 
   useEffect(() => {
     
@@ -109,9 +110,22 @@ const AddQuestion = () => {
     navigate(`/current-quiz-detail?quizId=${quizId}`)
   }
 
+  const handleLogout = () => {
+    localStorage.removeItem('token');
+    localStorage.removeItem('username');
+    navigate(`/`);
+  };
+
   return (
-    <div className="container">
-      <h1 id="question-header">Вопрос {questionNumber}</h1>
+    <div >
+      <div className='header-wrapper-myquizzes'></div>
+      <div className='profile-container'>
+        <h1 id="username">Привет, {username}!</h1>
+        <button onClick={handleLogout}>Выход</button>
+      </div>
+      <div className='add-question-container'>
+      <button className='return-button' onClick={returnBack}></button>
+      <h1 id="question-header">Новый вопрос</h1>
       <form id="addQuestionForm" onSubmit={handleSubmit}>
         <input 
           type="text" 
@@ -195,17 +209,10 @@ const AddQuestion = () => {
             Правильный
           </label>
         </div>
-        <input 
-          type="text" 
-          id="image" 
-          placeholder="URL картинки" 
-          value={image} 
-          onChange={(e) => setImage(e.target.value)} 
-        />
-        <button onClick={returnBack}>Назад</button>
         <button type="submit">Далее</button>
         <button id="save-button" onClick={handleSaveAndReturn}>Сохранить и вернуться</button>
-      </form>
+        </form>
+        </div>
     </div>
   );
 };

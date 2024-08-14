@@ -246,7 +246,7 @@ const CreateNewQuiz = () => {
                 </ul>
               </div>
             )}
-            {isLoading && <p>Загрузка...</p>}
+       
             <button onClick={() => setCurrentStep(2)}>Назад</button>
             <button onClick={() => setShowConfirm(true)}>Создать</button>
           </div>
