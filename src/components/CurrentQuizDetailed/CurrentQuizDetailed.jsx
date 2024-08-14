@@ -9,7 +9,7 @@ const CurrentQuizDetailed = () => {
   const [message, setMessage] = useState('');
   const [error, setError] = useState(null);
   const [expandedQuestionIndex, setExpandedQuestionIndex] = useState(null);
-  const [isFavoriteButtonVisible, setIsFavoriteButtonVisible] = useState(true); // Новое состояние для видимости кнопки
+  const [isFavoriteButtonVisible, setIsFavoriteButtonVisible] = useState(true); 
 
   const navigate = useNavigate();
   const location = useLocation();

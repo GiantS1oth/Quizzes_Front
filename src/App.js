@@ -8,6 +8,8 @@ import Login from './Pages/Login/Login';
 import Quizzes from './Pages/Quizzes/Quizzes';
 import CreateNewQuiz from './Pages/CreateNewQuiz/CreateNewQuiz';
 import QuizCreated from './Pages/QuizCreated/QuizCreated';
+import QuizCategoryForm from './Pages/CreateNewQuiz/QuizCategoryForm'
+import QuizDescriptionForm from './Pages/CreateNewQuiz/QuizDescriptionForm';
 
 import AddQuestion from './Pages/AddQuestion/AddQuestion';
 import MyQuizzes from './Pages/MyQuizzes/MyQuizzes';
@@ -19,6 +21,7 @@ import CreateCategories from './Pages/CreateCategory/CreateCategory';
 import SearchCategory from './Pages/SearchCategory/SearchCategory';
 import MyFavorites from './Pages/MyFavorites/MyFavorites';
 import GetTop20Categories from './components/GetTop20Categories/GetTop20Categories';
+import QuizNameForm from './Pages/CreateNewQuiz/QuizNameForm';
 
 
 
@@ -32,7 +35,7 @@ function App() {
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login />} />
           <Route path='/quizzes' element={<Quizzes />} />
-          <Route path='/createQuiz' element={< CreateNewQuiz />} />
+          <Route path="/createQuiz/*" element={< CreateNewQuiz />} />
           <Route path='/quizCreated' element={<QuizCreated />} />
           <Route path="/current-quiz-detail" element={<CurrentQuizDetail/>} />
           <Route path='/addQuestion' element={<AddQuestion />} />
@@ -43,7 +46,11 @@ function App() {
           <Route path='/createCategory' element={<CreateCategories />} />
           <Route path='/searchCategory' element={<SearchCategory />} />
           <Route path='/favorites' element={<MyFavorites />} />
-          <Route path='/getTop20' element={<GetTop20Categories/>} />
+          <Route path='/getTop20' element={<GetTop20Categories />} />
+          <Route path="/create-description" element={<QuizDescriptionForm />} />
+          <Route path="/create-category" element={<QuizCategoryForm />} />
+          <Route path="/createQuizName" element={<QuizNameForm />} />
+
         </Routes>
       </div>
     </Router>

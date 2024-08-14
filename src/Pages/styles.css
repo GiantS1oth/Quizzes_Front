@@ -564,3 +564,16 @@ position: absolute;
 top: 20px;
 left: 1170px;
 }
+
+.createquiz-container {
+  position: absolute;
+  border-radius: 12px;
+  top: 130px;
+  right: 40px;
+  width: 1295px;
+  height: 775px;
+  background-color: #fff;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);  
+}
