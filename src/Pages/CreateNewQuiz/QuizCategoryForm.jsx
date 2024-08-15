@@ -109,19 +109,20 @@ const QuizCategoryForm = ({ formData, setFormData, handleSubmit }) => {
     <div>
       <h1>Добавить новый тест - Шаг 3: Категория</h1>
       <input
-        type="text"
-        id="quiz-category"
-        placeholder="Название категории"
-        value={category}
-        onChange={(e) => {
-          setCategory(e.target.value);
-          setShowResults(true);
-        }}
-        onBlur={() => {
-          setTimeout(() => setShowResults(false), 100);
-        }}
-        required
-      />
+  type="text"
+  id="quiz-category"
+  placeholder="Название категории"
+  value={category}
+  onChange={(e) => {
+    const input = e.target.value.slice(0, 32); 
+    setCategory(input);
+  }}
+  onBlur={() => {
+    setTimeout(() => setShowResults(false), 100);
+  }}
+  required
+  maxLength={32} 
+/>
       {showResults && results.length > 0 && (
         <div className="search-results">
           <ul>

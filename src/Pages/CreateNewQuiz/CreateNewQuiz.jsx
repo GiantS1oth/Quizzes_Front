@@ -84,7 +84,7 @@ const CreateNewQuiz = () => {
       if (response.ok) {
         const data = await response.json();
         setMessage('Категория успешно создана');
-        return data.id; // Возвращаем ID созданной категории
+        return data.id; 
       } else {
         const errorData = await response.json();
         setMessage('Ошибка сохранения категории: ' + (errorData.message || 'Неизвестная ошибка'));
@@ -108,12 +108,15 @@ const CreateNewQuiz = () => {
 
     let categoryId = formData.selectedCategory?.id;
 
-    if (!categoryId) {
+    if (categoryId) {
+      
+      setShowConfirm(true);
+    } else {
+      
       categoryId = await createCategory(formData.category);
-      if (!categoryId) return; // Если не удалось создать категорию, завершить выполнение
+      if (!categoryId) return; 
+      createQuiz(categoryId);
     }
-
-    createQuiz(categoryId);
   };
 
   const createQuiz = async (categoryId) => {
@@ -149,8 +152,10 @@ const CreateNewQuiz = () => {
   const handleConfirm = (confirm) => {
     setShowConfirm(false);
     if (confirm) {
+      
       handleSubmit();
     } else {
+      
       setFormData(prevState => ({
         ...prevState,
         category: '',
@@ -224,12 +229,14 @@ const CreateNewQuiz = () => {
               placeholder="Название категории"
               value={formData.category}
               onChange={(e) => {
+                const category = e.target.value.slice(0, 32); 
                 setFormData(prevState => ({
                   ...prevState,
-                  category: e.target.value
+                  category
                 }));
                 setShowResults(true);
               }}
+              maxLength={32} 
               onBlur={() => {
                 setTimeout(() => setShowResults(false), 100);
               }}
@@ -248,7 +255,7 @@ const CreateNewQuiz = () => {
             )}
        
             <button onClick={() => setCurrentStep(2)}>Назад</button>
-            <button onClick={() => setShowConfirm(true)}>Создать</button>
+            <button onClick={handleSubmit}>Создать</button>
           </div>
         )}
         {showConfirm && (

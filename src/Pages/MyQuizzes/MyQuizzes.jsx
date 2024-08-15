@@ -92,8 +92,9 @@ function MyQuizzes() {
     <div>
       <div className='header-wrapper-myquizzes'></div>
       <div className='profile-container'>
+        <div className='profile-picture'></div>
         <h1 id="username">Привет, {localStorage.getItem('username')}!</h1>
-        <button onClick={handleLogout}>Выход</button>
+        <button className='profile-exit' onClick={handleLogout}>Выход</button>
       </div>
       <div id="quizzes-list" className='quizzes-list'>
         <button className='return-button' onClick={returnBack}></button>

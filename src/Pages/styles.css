@@ -291,6 +291,10 @@ left: 20px;
   background-color: #fff;
   border-radius: 12px;
   box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 .add-favorites-button {
@@ -462,7 +466,7 @@ color: #2A63F6;
 .div-category-for-currentquiz {
   position: absolute;
   top: 85px;
-  width: 145px;
+  width: 247px;
   height: 24px;
   background-color: #007bff;
   border-radius: 14px;
@@ -589,4 +593,33 @@ left: 1170px;
   display: flex;
   flex-direction: column;
   box-shadow: 0 4px 8px rgba(0,0,0,0.1); 
+}
+
+.profile-exit {
+  
+  padding: 10px 20px;
+  border-radius: 8px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+  margin-top: auto; 
+}
+
+.profile-picture {
+  background-image: url('/public/Assets/profile-portrait.svg');
+  background-repeat: no-repeat;
+  height: 140px;
+  width: 140px;
+  border-radius: 50%;
+  background-size: cover;
+  background-position: center;
+  margin-bottom: 20px; 
+  margin-top: 40px;
+}
+
+#username {
+  margin-bottom: 20px; 
+  text-align: center;
 }
