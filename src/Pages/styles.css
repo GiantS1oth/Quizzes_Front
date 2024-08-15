@@ -608,6 +608,7 @@ left: 1170px;
 }
 
 .profile-picture {
+  position: relative;
   background-image: url('/public/Assets/profile-portrait.svg');
   background-repeat: no-repeat;
   height: 140px;
@@ -622,4 +623,36 @@ left: 1170px;
 #username {
   margin-bottom: 20px; 
   text-align: center;
+}
+
+.city {
+  color: #007bff;
+}
+
+.profile-picture-upload {
+  display: none; /* Hide the file input */
+}
+.profile-picture img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+  background-position: center;
+  border: 1px solid #A4A7AE;
+}
+
+.change-picture-button {
+  position: absolute; /* Абсолютное позиционирование относительно родителя */
+  bottom: -10px; /* Расположить снизу с отступом */
+  right: -10px; /* Расположить справа с отступом */
+  width: 48px;
+  height: 48px;
+  border: 1px solid #A4A7AE;
+  border-radius: 50%;
+  background-color: white;
+  background-image: url('/public/Assets/change_profile_picture.svg');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 24px 24px; /* Размер иконки внутри кнопки */
+  cursor: pointer; /* Указывает, что элемент кликабельный */
 }
