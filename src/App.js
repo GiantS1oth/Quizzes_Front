@@ -22,14 +22,17 @@ import SearchCategory from './Pages/SearchCategory/SearchCategory';
 import MyFavorites from './Pages/MyFavorites/MyFavorites';
 import GetTop20Categories from './components/GetTop20Categories/GetTop20Categories';
 import QuizNameForm from './Pages/CreateNewQuiz/QuizNameForm';
+import { FavoritesProvider } from './components/FavoriteContext/FavoriteContex';
 
 
 
 
 function App() {
   return (
+    <FavoritesProvider>
     <Router>
       <div className="App">
+        
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/register" element={<Register />} />
@@ -52,8 +55,10 @@ function App() {
           <Route path="/createQuizName" element={<QuizNameForm />} />
 
         </Routes>
+        
       </div>
     </Router>
+    </FavoritesProvider>
   );
 }
 

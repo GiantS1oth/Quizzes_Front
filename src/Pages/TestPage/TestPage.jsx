@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import '../styles.css';
+import ProfileContainer from '../../components/ProfileContainer/ProfileContainer';
 
 function TestPage() {
   const navigate = useNavigate();
@@ -177,21 +178,14 @@ function TestPage() {
     navigate(`/current-quiz-detail?quizId=${quizId}`);
   };
 
-  const handleLogout = () => {
-    localStorage.removeItem('token');
-    localStorage.removeItem('username');
-    navigate(`/`);
-  };
+ 
 
   return (
     <div>
       <div className='header-wrapper-myquizzes'>
         <h1>{folderName}</h1>
       </div>
-      <div className='profile-container'>
-        <h1 id="username">Привет, {localStorage.getItem('username')}!</h1>
-        <button onClick={handleLogout}>Выход</button>
-      </div>
+      <ProfileContainer /> 
       
       <div className='test-page-container'>
         <button className='return-button' onClick={returnBack}></button>

@@ -69,7 +69,8 @@ main {
   background-position: right center; 
   border: none;
   height: 30px;
-  width: 214px; 
+  width: 214px;
+  margin-left: 16px; 
   text-decoration: underline;
   font-size: 20px;
   cursor: pointer; 

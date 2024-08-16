@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import ProfileContainer from '../../components/ProfileContainer/ProfileContainer';
 import '../styles.css';
 
 function MyFavorites() {
@@ -82,19 +83,10 @@ function MyFavorites() {
     navigate('/quizzes');
   };
 
-  const handleLogout = () => {
-    localStorage.removeItem('token');
-    localStorage.removeItem('username');
-    navigate(`/`);
-  };
-
   return (
     <div>
       <div className='header-wrapper-myquizzes'></div>
-      <div className='profile-container'>
-        <h1 id="username">Привет, {localStorage.getItem('username')}!</h1>
-        <button onClick={handleLogout}>Выход</button>
-      </div>
+      <ProfileContainer /> 
       <div className='my-favorites-container'>
         <button className='return-button' onClick={returnBack}></button>
         <div className="favorites-list">
@@ -112,7 +104,7 @@ function MyFavorites() {
               </div>
             ))
           ) : (
-            <p>Нет избранных тестов.</p>
+            <></>
           )}
         </div>
       </div>

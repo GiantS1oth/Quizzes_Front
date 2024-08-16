@@ -311,6 +311,19 @@ left: 20px;
   overflow: hidden;
   
 }
+.add-favorites-button.remove{
+  background-image: url('/public/Assets/favorites_button_clicked.svg');
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  border: none;
+  width: 45px;
+  height: 45px;
+  padding: 0;
+  cursor: pointer;
+  border-radius: 50%;
+  overflow: hidden;
+}
 
 .add-favorites-button.active {
   background-image: url('/public/Assets/favorites_button_clicked.svg');
@@ -465,6 +478,7 @@ color: #2A63F6;
 
 .div-category-for-currentquiz {
   position: absolute;
+  margin-left: 15px;
   top: 85px;
   width: 247px;
   height: 24px;
@@ -503,6 +517,7 @@ color: #2A63F6;
 
 .quiz-name-detailed-quiz {
   margin-bottom: 30px;
+  margin-left: 15px;
 }
 
 .quiz-description-detailed-quiz{
@@ -525,7 +540,8 @@ color: #2A63F6;
   border: 1px solid #70A8FF;
   border-radius: 8px;
   margin-bottom: 10px;
-  margin-top: 5px;
+  margin-top: 10px;
+  margin-left: 15px;
   padding: 15px;
   transition: height 0.3s ease;
   direction: underline;
@@ -557,6 +573,8 @@ background-color: #EAF0FF;
 
 .displayed-questions {
   
+  top: 75px;
+  left: 30px;
   overflow-y:auto;
   scrollbar-width: none;
   max-height: 500px;
@@ -605,6 +623,7 @@ left: 1170px;
   cursor: pointer;
   font-size: 16px;
   margin-top: auto; 
+  width: 97%;
 }
 
 .profile-picture {
@@ -630,7 +649,7 @@ left: 1170px;
 }
 
 .profile-picture-upload {
-  display: none; /* Hide the file input */
+  display: none; 
 }
 .profile-picture img {
   width: 100%;
@@ -642,9 +661,9 @@ left: 1170px;
 }
 
 .change-picture-button {
-  position: absolute; /* Абсолютное позиционирование относительно родителя */
-  bottom: -10px; /* Расположить снизу с отступом */
-  right: -10px; /* Расположить справа с отступом */
+  position: absolute; 
+  bottom: -10px; 
+  right: -10px; 
   width: 48px;
   height: 48px;
   border: 1px solid #A4A7AE;
@@ -653,6 +672,65 @@ left: 1170px;
   background-image: url('/public/Assets/change_profile_picture.svg');
   background-repeat: no-repeat;
   background-position: center;
-  background-size: 24px 24px; /* Размер иконки внутри кнопки */
-  cursor: pointer; /* Указывает, что элемент кликабельный */
+  background-size: 24px 24px; 
+  cursor: pointer; 
+}
+
+.card-container {
+  position: absolute;
+  border-radius: 12px;
+  top: 130px;
+  right: 25px;
+  width: 1295px;
+  height: 775px;
+  
+  background-color: #fff;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);  
+}
+
+.question-theory-card {
+  width: 1195px;
+  height: 25px;
+  cursor: pointer;
+  overflow:hidden;
+  border: 1px solid #70A8FF;
+  border-radius: 8px;
+  margin-bottom: 10px;
+  margin-top: 10px;
+  margin-left: 15px;
+  padding: 15px;
+  transition: height 0.3s ease;
+  direction: underline;
+}
+
+.question-theory-card.expanded {
+  color: #007bff;
+  height: auto;
+  
+}
+.question-theory-card.expanded:hover{
+  background-color: #EAF0FF;
+}
+
+.question-theory-card:hover{
+background-color: #EAF0FF;
+}
+
+.question-theory-card h3 {
+  margin: 0;
+}
+
+.question-theory-card p {
+  margin-top: 5px;
+  color: #000;
+}
+
+.question-theory-card-wrapper{
+  margin-left: 15px;
+  margin-top: 10px;
+}
+.moving-right{
+margin-left: 11px;
 }

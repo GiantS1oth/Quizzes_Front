@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import '../styles.css';
+import ProfileContainer from '../../components/ProfileContainer/ProfileContainer';
 
 function TheoryPage() {
   const navigate = useNavigate();
@@ -9,7 +10,7 @@ function TheoryPage() {
   const quizId = query.get('quizId');
 
   const [questions, setQuestions] = useState([]);
-  const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
+  const [expandedQuestionIndex, setExpandedQuestionIndex] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
@@ -46,48 +47,53 @@ function TheoryPage() {
     fetchQuestions();
   }, [quizId]);
 
-  const handleNext = () => {
-    if (currentQuestionIndex < questions.length - 1) {
-      setCurrentQuestionIndex(currentQuestionIndex + 1);
-    }
+  const toggleQuestion = (index) => {
+    setExpandedQuestionIndex(expandedQuestionIndex === index ? null : index);
   };
 
-  const handlePrev = () => {
-    if (currentQuestionIndex > 0) {
-      setCurrentQuestionIndex(currentQuestionIndex - 1);
-    }
-  };
-
-  const handleFinish = () => {
+  const returnBack = () => {
     navigate(`/current-quiz-detail?quizId=${quizId}`);
   };
 
   return (
     <div>
-      <header>
-        <h1>Карточки теста</h1>
-        <button onClick={() => navigate(`/current-quiz-detail?quizId=${quizId}`)}>Назад</button>
-      </header>
+      <div className='header-wrapper-myquizzes'>
+        <h1>Теория</h1>
+      </div>
+      <ProfileContainer /> 
 
-      <main>
-        <div id="card-container">
-          {loading ? (
-            <></>
-          ) : error ? (
-            <p>Ошибка: {error}</p>
+      
+      <div className='card-container'>
+      <button className='return-button' onClick={returnBack}></button>
+        {loading ? (
+          <></>
+        ) : error ? (
+          <p>Ошибка: {error}</p>
           ) : questions.length > 0 ? (
-            <div id="card-content">
-              <p>Вопрос: {questions[currentQuestionIndex].questionText}</p>
-              <p>Ответ: {questions[currentQuestionIndex].answer}</p>
-            </div>
-          ) : (
-            <p>Нет вопросов для отображения</p>
-          )}
-          <button id="prev-button" onClick={handlePrev} disabled={currentQuestionIndex === 0}>Предыдущий</button>
-          <button id="next-button" onClick={handleNext} disabled={currentQuestionIndex === questions.length - 1}>Следующий</button>
-          <button onClick={handleFinish}>Завершить</button>
-        </div>
-      </main>
+              <div className='question-theory-card-wrapper'>
+          <div className='question-theory-card-container'>
+            {questions.map((question, index) => (
+              <div
+                key={question.id}
+                className={`question-theory-card ${expandedQuestionIndex === index ? 'expanded' : ''}`}
+                onClick={() => toggleQuestion(index)}
+              >
+                <p style={{ margin: 0 }}>Вопрос {index + 1}</p>
+                {expandedQuestionIndex === index && (
+                  <div>
+                    <p style={{ marginTop: '5px' }}>{question.questionText}</p>
+                    <p style={{ marginTop: '5px' }}>Правильный ответ: {question.answer}</p>
+                  </div>
+                )}
+              </div>
+            ))}
+          </div>
+          </div>
+        ) : (
+          <p>Вопросы не найдены.</p>
+        )}
+      </div>
+      <button className='finish-button' onClick={returnBack}>Завершить</button>
     </div>
   );
 }

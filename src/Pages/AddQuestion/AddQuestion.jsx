@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
+import ProfileContainer from '../../components/ProfileContainer/ProfileContainer';
 import '../styles.css';
 
 function AddQuestion() {
@@ -16,9 +17,7 @@ function AddQuestion() {
   const username = localStorage.getItem('username');
 
   useEffect(() => {
-    
   }, [quizId]);
-
 
   const handleSendQuestion = async (newQuestion) => {
     const token = localStorage.getItem('token');
@@ -47,11 +46,18 @@ function AddQuestion() {
     }
   };
 
- 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (questionText.trim() === '' || rightAnswer === '') {
+    
+    if (
+      questionText.trim() === '' ||
+      rightAnswer === '' ||
+      answers.text1.trim() === '' ||
+      answers.text2.trim() === '' ||
+      answers.text3.trim() === '' ||
+      answers.text4.trim() === ''
+    ) {
       alert('Пожалуйста, заполните все поля.');
       return;
     }
@@ -70,7 +76,7 @@ function AddQuestion() {
     const success = await handleSendQuestion(newQuestion);
     
     if (success) {
-      
+     
       setQuestionText('');
       setAnswers({ text1: '', text2: '', text3: '', text4: '' });
       setRightAnswer('');
@@ -79,11 +85,18 @@ function AddQuestion() {
     }
   };
 
-  
   const handleSaveAndReturn = async (e) => {
     e.preventDefault();
 
-    if (questionText.trim() === '' || rightAnswer === '') {
+    
+    if (
+      questionText.trim() === '' ||
+      rightAnswer === '' ||
+      answers.text1.trim() === '' ||
+      answers.text2.trim() === '' ||
+      answers.text3.trim() === '' ||
+      answers.text4.trim() === ''
+    ) {
       alert('Пожалуйста, заполните все поля.');
       return;
     }
@@ -107,114 +120,105 @@ function AddQuestion() {
   };
 
   const returnBack = () => {
-    navigate(`/current-quiz-detail?quizId=${quizId}`)
-  }
-
-  const handleLogout = () => {
-    localStorage.removeItem('token');
-    localStorage.removeItem('username');
-    navigate(`/`);
+    navigate(`/current-quiz-detail?quizId=${quizId}`);
   };
 
   return (
-    <div >
+    <div>
       <div className='header-wrapper-myquizzes'></div>
-      <div className='profile-container'>
-        <h1 id="username">Привет, {username}!</h1>
-        <button onClick={handleLogout}>Выход</button>
-      </div>
+      <ProfileContainer /> 
       <div className='add-question-container'>
-      <button className='return-button' onClick={returnBack}></button>
-      <h1 id="question-header">Новый вопрос</h1>
-      <form id="addQuestionForm" onSubmit={handleSubmit}>
-        <input 
-          type="text" 
-          id="questionText" 
-          placeholder="Текст вопроса" 
-          value={questionText} 
-          onChange={(e) => setQuestionText(e.target.value)} 
-          required 
-        />
-        <input 
-          type="text" 
-          id="answer1" 
-          placeholder="Ответ 1" 
-          value={answers.text1} 
-          onChange={(e) => setAnswers({ ...answers, text1: e.target.value })} 
-          required 
-        />
-        <input 
-          type="text" 
-          id="answer2" 
-          placeholder="Ответ 2" 
-          value={answers.text2} 
-          onChange={(e) => setAnswers({ ...answers, text2: e.target.value })} 
-          required 
-        />
-        <input 
-          type="text" 
-          id="answer3" 
-          placeholder="Ответ 3" 
-          value={answers.text3} 
-          onChange={(e) => setAnswers({ ...answers, text3: e.target.value })} 
-          required 
-        />
-        <input 
-          type="text" 
-          id="answer4" 
-          placeholder="Ответ 4" 
-          value={answers.text4} 
-          onChange={(e) => setAnswers({ ...answers, text4: e.target.value })} 
-          required 
-        />
-        <div>
-          <label>
-            <input 
-              type="radio" 
-              name="rightAnswer" 
-              value="1" 
-              checked={rightAnswer === '1'} 
-              onChange={(e) => setRightAnswer(e.target.value)} 
-            /> 
-            Правильный
-          </label>
-          <label>
-            <input 
-              type="radio" 
-              name="rightAnswer" 
-              value="2" 
-              checked={rightAnswer === '2'} 
-              onChange={(e) => setRightAnswer(e.target.value)} 
-            /> 
-            Правильный
-          </label>
-          <label>
-            <input 
-              type="radio" 
-              name="rightAnswer" 
-              value="3" 
-              checked={rightAnswer === '3'} 
-              onChange={(e) => setRightAnswer(e.target.value)} 
-            /> 
-            Правильный
-          </label>
-          <label>
-            <input 
-              type="radio" 
-              name="rightAnswer" 
-              value="4" 
-              checked={rightAnswer === '4'} 
-              onChange={(e) => setRightAnswer(e.target.value)} 
-            /> 
-            Правильный
-          </label>
-        </div>
-        <button type="submit">Далее</button>
-        <button id="save-button" onClick={handleSaveAndReturn}>Сохранить и вернуться</button>
+        <button className='return-button' onClick={returnBack}></button>
+        <h1 id="question-header">Новый вопрос</h1>
+        <form id="addQuestionForm" onSubmit={handleSubmit}>
+          <input 
+            type="text" 
+            id="questionText" 
+            placeholder="Текст вопроса" 
+            value={questionText} 
+            onChange={(e) => setQuestionText(e.target.value)} 
+            required 
+          />
+          <input 
+            type="text" 
+            id="answer1" 
+            placeholder="Ответ 1" 
+            value={answers.text1} 
+            onChange={(e) => setAnswers({ ...answers, text1: e.target.value })} 
+            required 
+          />
+          <input 
+            type="text" 
+            id="answer2" 
+            placeholder="Ответ 2" 
+            value={answers.text2} 
+            onChange={(e) => setAnswers({ ...answers, text2: e.target.value })} 
+            required 
+          />
+          <input 
+            type="text" 
+            id="answer3" 
+            placeholder="Ответ 3" 
+            value={answers.text3} 
+            onChange={(e) => setAnswers({ ...answers, text3: e.target.value })} 
+            required 
+          />
+          <input 
+            type="text" 
+            id="answer4" 
+            placeholder="Ответ 4" 
+            value={answers.text4} 
+            onChange={(e) => setAnswers({ ...answers, text4: e.target.value })} 
+            required 
+          />
+          <div>
+            <label>
+              <input 
+                type="radio" 
+                name="rightAnswer" 
+                value="1" 
+                checked={rightAnswer === '1'} 
+                onChange={(e) => setRightAnswer(e.target.value)} 
+              /> 
+              Правильный
+            </label>
+            <label>
+              <input 
+                type="radio" 
+                name="rightAnswer" 
+                value="2" 
+                checked={rightAnswer === '2'} 
+                onChange={(e) => setRightAnswer(e.target.value)} 
+              /> 
+              Правильный
+            </label>
+            <label>
+              <input 
+                type="radio" 
+                name="rightAnswer" 
+                value="3" 
+                checked={rightAnswer === '3'} 
+                onChange={(e) => setRightAnswer(e.target.value)} 
+              /> 
+              Правильный
+            </label>
+            <label>
+              <input 
+                type="radio" 
+                name="rightAnswer" 
+                value="4" 
+                checked={rightAnswer === '4'} 
+                onChange={(e) => setRightAnswer(e.target.value)} 
+              /> 
+              Правильный
+            </label>
+          </div>
+          <button type="submit">Далее</button>
+          <button id="save-button" onClick={handleSaveAndReturn}>Сохранить и вернуться</button>
         </form>
-        </div>
+      </div>
     </div>
   );
-};
+}
 
 export default AddQuestion;

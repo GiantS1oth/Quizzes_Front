@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import '../styles.css'; 
 import GetTop20Categories from '../../components/GetTop20Categories/GetTop20Categories';
 import SearchDialog from '../../components/SearchDialog/SearchDialog';
+import ProfileContainer from '../../components/ProfileContainer/ProfileContainer';
 
 function Quizzes() {
   const [showDialog, setShowDialog] = useState(false);
@@ -100,21 +101,12 @@ function Quizzes() {
     }
   };
 
-  const handleLogout = () => {
-    localStorage.removeItem('token');
-    localStorage.removeItem('username');
-    navigate(`/`);
-  }
-
   return (
     <div>
       <div className='header-wrapper'>
         <div className='cabinet'></div>
       </div>
-        <div className='profile-container'>
-          <h1 id="username">Привет, {localStorage.getItem('username') || 'Гость'}!</h1>
-          <button onClick={handleLogout}>Выход</button>
-        </div>
+      <ProfileContainer /> 
         <div id="buttons-container" className='buttons-container'>
         <button className="button my-quizzes-button" onClick={showMyQuizzes}
         disabled={!isTokenValid}

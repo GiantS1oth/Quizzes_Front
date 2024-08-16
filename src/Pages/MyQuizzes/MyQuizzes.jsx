@@ -6,11 +6,11 @@ function MyQuizzes() {
   const [quizzes, setQuizzes] = useState([]);
   const [message, setMessage] = useState('');
   const [city, setCity] = useState('');
-  const [profilePicture, setProfilePicture] = useState(null); // Состояние для хранения изображения
+  const [profilePicture, setProfilePicture] = useState(null); 
   const navigate = useNavigate();
 
   useEffect(() => {
-    // Получение фото из localStorage при монтировании компонента
+    
     const savedProfilePicture = localStorage.getItem('profilePicture');
     if (savedProfilePicture) {
       setProfilePicture(savedProfilePicture);
@@ -109,7 +109,6 @@ function MyQuizzes() {
           )
       );
 
-      setMessage(isFavorite ? 'Тест удален из избранного.' : 'Тест добавлен в избранное.');
       setTimeout(() => setMessage(''), 3000);
     } catch (error) {
       console.error('Ошибка:', error);
@@ -165,7 +164,7 @@ function MyQuizzes() {
                     </div>
                 ))
             ) : (
-                <p>Нет доступных тестов.</p>
+                <></>
             )}
           </div>
         </div>

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import ProfileContainer from '../../components/ProfileContainer/ProfileContainer'
 import '../styles.css';
 
 const CreateNewQuiz = () => {
@@ -109,12 +110,10 @@ const CreateNewQuiz = () => {
     let categoryId = formData.selectedCategory?.id;
 
     if (categoryId) {
-      
       setShowConfirm(true);
     } else {
-      
       categoryId = await createCategory(formData.category);
-      if (!categoryId) return; 
+      if (!categoryId) return;
       createQuiz(categoryId);
     }
   };
@@ -152,10 +151,8 @@ const CreateNewQuiz = () => {
   const handleConfirm = (confirm) => {
     setShowConfirm(false);
     if (confirm) {
-      
       handleSubmit();
     } else {
-      
       setFormData(prevState => ({
         ...prevState,
         category: '',
@@ -165,12 +162,6 @@ const CreateNewQuiz = () => {
     }
   };
 
-  const handleLogout = () => {
-    localStorage.removeItem('token');
-    localStorage.removeItem('username');
-    navigate(`/`);
-  };
-
   const returnToQuizzes = () => {
     navigate(`/quizzes`);
   };
@@ -178,10 +169,7 @@ const CreateNewQuiz = () => {
   return (
     <div>
       <div className='header-wrapper-myquizzes'></div>
-      <div className='profile-container'>
-        <h1 id="username">Привет, {username}!</h1>
-        <button onClick={handleLogout}>Выход</button>
-      </div>
+      <ProfileContainer /> 
       <div className='createquiz-container'>
         <button className='return-button' onClick={returnToQuizzes}></button>
         <h1>Добавить новый тест</h1>
@@ -253,7 +241,6 @@ const CreateNewQuiz = () => {
                 </ul>
               </div>
             )}
-       
             <button onClick={() => setCurrentStep(2)}>Назад</button>
             <button onClick={handleSubmit}>Создать</button>
           </div>

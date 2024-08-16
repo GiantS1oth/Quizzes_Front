@@ -1,15 +1,15 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import './styles.css';
+import ProfileContainer from '../../components/ProfileContainer/ProfileContainer';
 
 const CurrentQuizDetailed = () => {
   const [quiz, setQuiz] = useState(null);
   const [questions, setQuestions] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [message, setMessage] = useState('');
   const [error, setError] = useState(null);
   const [expandedQuestionIndex, setExpandedQuestionIndex] = useState(null);
-  const [isFavoriteButtonVisible, setIsFavoriteButtonVisible] = useState(true); 
+  const [isFavorite, setIsFavorite] = useState(false);
 
   const navigate = useNavigate();
   const location = useLocation();
@@ -37,12 +37,10 @@ const CurrentQuizDetailed = () => {
         }
 
         const quizData = await response.json();
-        const favorites = JSON.parse(localStorage.getItem('favorites')) || [];
-        setQuiz({
-          ...quizData,
-          isFavorite: favorites.includes(quizId),
-        });
+        setQuiz(quizData);
 
+        const favorites = JSON.parse(localStorage.getItem('favorites')) || [];
+        setIsFavorite(favorites.includes(quizId));
       } catch (error) {
         console.error('Ошибка при загрузке деталей теста:', error);
         alert('Не удалось загрузить детали теста.');
@@ -108,13 +106,7 @@ const CurrentQuizDetailed = () => {
     navigate(`/myQuizzes`);
   };
 
-  const handleLogout = () => {
-    localStorage.removeItem('token');
-    localStorage.removeItem('username');
-    navigate(`/`);
-  };
-
-  const toggleFavorite = async (quizId, isFavorite) => {
+  const toggleFavorite = async () => {
     const token = localStorage.getItem('token');
     const url = isFavorite
       ? `http://localhost:8192/quizzes/api/v1/quizzes/deleteFromFavoritesByQuizId?quiz_id=${quizId}`
@@ -135,84 +127,69 @@ const CurrentQuizDetailed = () => {
         throw new Error(`Ошибка сети: ${response.status} ${response.statusText} - ${errorText}`);
       }
 
-     
-      const favorites = JSON.parse(localStorage.getItem('favorites')) || [];
       const updatedFavorites = isFavorite
-        ? favorites.filter(id => id !== quizId)
-        : [...favorites, quizId];
+        ? JSON.parse(localStorage.getItem('favorites')).filter(id => id !== quizId)
+        : [...(JSON.parse(localStorage.getItem('favorites')) || []), quizId];
       localStorage.setItem('favorites', JSON.stringify(updatedFavorites));
 
-     
-      setQuiz(prevQuiz => ({
-        ...prevQuiz,
-        isFavorite: !isFavorite,
-      }));
-
-      
-      setIsFavoriteButtonVisible(false);
-
-      setMessage(isFavorite ? 'Тест удален из избранного.' : 'Тест добавлен в избранное.');
-      setTimeout(() => setMessage(''), 3000);
+      setIsFavorite(!isFavorite);
     } catch (error) {
       console.error('Ошибка:', error);
-      setMessage(`Ошибка изменения статуса теста: ${error.message}`);
-      setTimeout(() => setMessage(''), 3000);
+      alert(`Ошибка изменения статуса теста: ${error.message}`);
     }
   };
 
   return (
     <div>
       <div className='header-wrapper-myquizzes'></div>
-      <div className='profile-container'>
-        <h1 id="username">Привет, {username}!</h1>
-        <button onClick={handleLogout}>Выход</button>
-      </div>
+      <ProfileContainer /> 
       <div className='quiz-detailed-container'>
         <button className='return-button' onClick={returnToQuizzes}></button>
         {quiz ? (
           <div className='quiz-inside-detailed'>
             <h1 id="quiz-name" className='quiz-name-detailed-quiz'>{quiz.name}</h1>
             <div className='favorites-button-qd'>
-              {isFavoriteButtonVisible && (
-                <button
-                  className={`add-favorites-button ${quiz.isFavorite ? 'active' : ''}`}
-                  onClick={(event) => {
-                    event.stopPropagation();
-                    toggleFavorite(quiz.id, quiz.isFavorite);
-                  }}
-                >
-                </button>
-              )}
+              <button
+                className={`add-favorites-button ${isFavorite ? 'active' : ''}`}
+                onClick={(event) => {
+                  event.stopPropagation();
+                  toggleFavorite();
+                }}
+              >
+              </button>
             </div>
             <div className='div-category-for-currentquiz'>{quiz.categoryName}</div>
-
-            <div className='displayed-questions'>
-              {loading ? (
-                <></>
-              ) : error ? (
-                <p>Ошибка: {error}</p>
-              ) : questions.length > 0 ? (
-                questions.map((question, index) => (
-                  <div
-                    key={question.id}
-                    className={`question-item ${expandedQuestionIndex === index ? 'expanded' : ''}`}
-                    onClick={() => toggleQuestion(index)}
-                  >
-                    <p style={{ margin: 0 }}>Вопрос {index + 1}</p>
-                    {expandedQuestionIndex === index && (
-                      <p style={{ marginTop: '5px' }}>{question.questionText}</p>
-                    )}
-                  </div>
-                ))
-              ) : (
-                <p>Нет вопросов.</p>
-              )}
+            
+            <div className='displayed-questions-wrapper'>
+              <div className='displayed-questions'>
+                {questions.length > 0 ? (
+                  questions.map((question, index) => (
+                    <div
+                      key={question.id}
+                      className={`question-item ${expandedQuestionIndex === index ? 'expanded' : ''}`}
+                      onClick={() => toggleQuestion(index)}
+                    >
+                      <p style={{ margin: 0 }}>Вопрос {index + 1}</p>
+                      {expandedQuestionIndex === index && (
+                        <div className='question-details'>
+                          <p style={{ marginTop: '5px' }}>{question.questionText}</p>
+                         
+                        </div>
+                      )}
+                    </div>
+                  ))
+                ) : (
+                  <></>
+                )}
+              </div>
             </div>
             {quiz.authorName === username && (
               <div id="add-questions-button" className='add-questions-button' onClick={() => navigate(`/addQuestion?quizId=${quizId}`)}>Добавить вопросы</div>
             )}
+            <div className='moving-right'>
             <button onClick={openTheory}>Теория</button>
-            <button onClick={startQuiz}>Пройти тест</button>
+              <button onClick={startQuiz}>Пройти тест</button>
+              </div>
           </div>
         ) : (
           <></>
