@@ -187,11 +187,13 @@ header {
   position: absolute;
   height: 141px;
   width: 512px;
+ 
   background-repeat: no-repeat;
   background-position: left center;
   padding-left: 40px;
   box-shadow: 0 4px 8px rgba(0,0,0,0.1);  
 }
+
 
 .quizzes-list {
   position: absolute;
@@ -941,4 +943,15 @@ margin-top: 70px;
   border-radius: 8px;
   outline: none;
   font-size: 30px;
+}
+
+.confirm-dialog {
+  position: absolute;
+  width: 400px;
+  height: 100px;
+  right: 450px;
+  bottom: 200px;
+  background-color: #fff;
+  border-radius: 8px;
+  border: none;
 }

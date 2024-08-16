@@ -149,10 +149,17 @@ const CreateNewQuiz = () => {
     }
   };
 
-  const handleConfirm = (confirm) => {
+  const handleConfirm = async (confirm) => {
     setShowConfirm(false);
     if (confirm) {
-      handleSubmit();
+      let categoryId = formData.selectedCategory?.id;
+
+      if (!categoryId) {
+        categoryId = await createCategory(formData.category);
+        if (!categoryId) return; 
+      }
+
+      createQuiz(categoryId);
     } else {
       setFormData(prevState => ({
         ...prevState,
@@ -187,108 +194,103 @@ const CreateNewQuiz = () => {
   return (
     <div>
       <div className='header-wrapper'>
-        
         <div className='header-container'>
-        <div className='cabinet'></div>
+          <div className='cabinet'></div>
           <h1 onClick={showMyQuizzes}>Мои Тесты</h1>
           <h1 onClick={showFavorites}>Избранное</h1>
           <h1 onClick={addNewQuiz}>Создать тест</h1>
-          </div>
+        </div>
       </div>
       <ProfileContainer /> 
       <div className='createquiz-container'>
-      <button className='return-button' onClick={returnToQuizzes}></button>
+        <button className='return-button' onClick={returnToQuizzes}></button>
         <div className='inner-content-addquiz'>
-        
-        <h1>Добавить новый тест</h1>
-        {currentStep === 1 && (
-          <div>
-            <h2>Шаг 1: Имя теста</h2>
-            <input
-              type="text"
-              id="quiz-name"
-              className='input-name'
-              placeholder="Имя теста"
-              value={formData.name}
-              onChange={(e) => setFormData(prevState => ({
-                ...prevState,
-                name: e.target.value
-              }))}
-              required
-            />
-            <button className='next-button-addq' onClick={() => setCurrentStep(2)}>Далее</button>
+          <h1>Добавить новый тест</h1>
+          {currentStep === 1 && (
+            <div>
+              <h2>Шаг 1: Имя теста</h2>
+              <input
+                type="text"
+                id="quiz-name"
+                className='input-name'
+                placeholder="Имя теста"
+                value={formData.name}
+                onChange={(e) => setFormData(prevState => ({
+                  ...prevState,
+                  name: e.target.value
+                }))}
+                required
+              />
+              <button className='next-button-addq' onClick={() => setCurrentStep(2)}>Далее</button>
             </div>
-            
-        )}
-        {currentStep === 2 && (
-          <div>
-            <h2>Шаг 2: Описание теста</h2>
-            <input
-              type="text"
+          )}
+          {currentStep === 2 && (
+            <div>
+              <h2>Шаг 2: Описание теста</h2>
+              <input
+                type="text"
                 id="quiz-description"
                 className='input-description'
-              placeholder="Описание"
-              value={formData.description}
-              onChange={(e) => setFormData(prevState => ({
-                ...prevState,
-                description: e.target.value
-              }))}
-              required
+                placeholder="Описание"
+                value={formData.description}
+                onChange={(e) => setFormData(prevState => ({
+                  ...prevState,
+                  description: e.target.value
+                }))}
+                required
               />
-              
-                <button className='prev-button-addq'  onClick={() => setCurrentStep(1)}>Назад</button>
-                <button className='next-prev-buttons-addq' onClick={() => setCurrentStep(3)}>Далее</button>
-                
-          </div>
-        )}
-        {currentStep === 3 && (
-          <div>
-            <h2>Шаг 3: Категория теста</h2>
-            <input
-              type="text"
+              <button className='prev-button-addq' onClick={() => setCurrentStep(1)}>Назад</button>
+              <button className='next-prev-buttons-addq' onClick={() => setCurrentStep(3)}>Далее</button>
+            </div>
+          )}
+          {currentStep === 3 && (
+            <div>
+              <h2>Шаг 3: Категория теста</h2>
+              <input
+                type="text"
                 id="quiz-category"
                 className='input-category'
-              placeholder="Название категории"
-              value={formData.category}
-              onChange={(e) => {
-                const category = e.target.value.slice(0, 32); 
-                setFormData(prevState => ({
-                  ...prevState,
-                  category
-                }));
-                setShowResults(true);
-              }}
-              maxLength={32} 
-              onBlur={() => {
-                setTimeout(() => setShowResults(false), 100);
-              }}
-              required
-            />
-            {showResults && results.length > 0 && (
-              <div className="search-results">
-                <ul>
-                  {results.map((categoryItem) => (
-                    <li key={categoryItem.id} onClick={() => handleSelectCategory(categoryItem)}>
-                      {categoryItem.name}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            )}
-            <button className='next-prev-buttons-addq' onClick={() => setCurrentStep(2)}>Назад</button>
-            <button className='prev-button-addq'  onClick={handleSubmit}>Создать</button>
-          </div>
-        )}
-        {showConfirm && (
-          <div className="confirm-dialog">
-            <p>Такая категория уже существует, хотите добавить ваш тест в эту категорию?</p>
-            <button onClick={() => handleConfirm(true)}>Да</button>
-            <button onClick={() => handleConfirm(false)}>Нет</button>
-          </div>
-        )}
-        {message && <p>{message}</p>}
+                placeholder="Название категории"
+                value={formData.category}
+                onChange={(e) => {
+                  const category = e.target.value.slice(0, 32); 
+                  setFormData(prevState => ({
+                    ...prevState,
+                    category
+                  }));
+                  setShowResults(true);
+                }}
+                maxLength={32} 
+                onBlur={() => {
+                  setTimeout(() => setShowResults(false), 100);
+                }}
+                required
+              />
+              {showResults && results.length > 0 && (
+                <div className="search-results">
+                  <ul>
+                    {results.map((categoryItem) => (
+                      <li key={categoryItem.id} onClick={() => handleSelectCategory(categoryItem)}>
+                        {categoryItem.name}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+              <button className='next-prev-buttons-addq' onClick={() => setCurrentStep(2)}>Назад</button>
+              <button className='prev-button-addq' onClick={handleSubmit}>Создать</button>
+            </div>
+          )}
+          {showConfirm && (
+            <div className="confirm-dialog">
+              <p>Такая категория уже существует, хотите добавить ваш тест в эту категорию?</p>
+              <button onClick={() => handleConfirm(true)}>Да</button>
+              <button onClick={() => handleConfirm(false)}>Нет</button>
+            </div>
+          )}
+          {message && <p>{message}</p>}
         </div>
-        </div>
+      </div>
     </div>
   );
 };

@@ -129,9 +129,10 @@ function Quizzes() {
         <button
           className="button add-quiz-button"
           onClick={addNewQuiz}
+          
           disabled={!isTokenValid} 
         >
-          Добавить новый тест
+          <div className='button-picture-addq'></div>Добавить новый тест
         </button>
       </div>
       <div className='top20'>
