@@ -8,6 +8,7 @@ function MyQuizzes() {
   const [city, setCity] = useState('');
   const [profilePicture, setProfilePicture] = useState(null); 
   const navigate = useNavigate();
+  const [isTokenValid, setIsTokenValid] = useState(true);
 
   useEffect(() => {
     
@@ -121,9 +122,34 @@ function MyQuizzes() {
     navigate('/quizzes');
   };
 
+  const showFavorites = () => {
+    navigate('/favorites');
+  };
+
+  const showMyQuizzes = () => {
+    navigate('/myQuizzes');
+  };
+
+  const addNewQuiz = () => {
+    if (!isTokenValid) {
+      alert('Вы не авторизованы. Пожалуйста, войдите в систему.');
+      navigate('/'); 
+      return;
+    }
+    navigate('/createQuiz'); 
+  };
+
   return (
       <div>
-        <div className='header-wrapper-myquizzes'></div>
+        <div className='header-wrapper'>
+        
+        <div className='header-container'>
+        <div className='cabinet'></div>
+          <h1 onClick={showMyQuizzes}>Мои Тесты</h1>
+          <h1 onClick={showFavorites}>Избранное</h1>
+          <h1 onClick={addNewQuiz}>Создать тест</h1>
+          </div>
+      </div>
         <div className='profile-container'>
           <div className='profile-picture'>
             {profilePicture && <img src={profilePicture} alt="Profile" />}

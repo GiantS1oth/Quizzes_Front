@@ -7,6 +7,7 @@ function MyFavorites() {
   const [favorites, setFavorites] = useState([]);
   const [message, setMessage] = useState('');
   const navigate = useNavigate();
+  const [isTokenValid, setIsTokenValid] = useState(true);
 
   useEffect(() => {
     const fetchFavorites = async () => {
@@ -83,9 +84,35 @@ function MyFavorites() {
     navigate('/quizzes');
   };
 
+  const showFavorites = () => {
+    navigate('/favorites');
+  };
+
+  const showMyQuizzes = () => {
+    navigate('/myQuizzes');
+  };
+
+  const addNewQuiz = () => {
+    if (!isTokenValid) {
+      alert('Вы не авторизованы. Пожалуйста, войдите в систему.');
+      navigate('/'); 
+      return;
+    }
+    navigate('/createQuiz'); 
+  };
+
+
   return (
     <div>
-      <div className='header-wrapper-myquizzes'></div>
+      <div className='header-wrapper'>
+        
+        <div className='header-container'>
+        <div className='cabinet'></div>
+          <h1 onClick={showMyQuizzes}>Мои Тесты</h1>
+          <h1 onClick={showFavorites}>Избранное</h1>
+          <h1 onClick={addNewQuiz}>Создать тест</h1>
+          </div>
+      </div>
       <ProfileContainer /> 
       <div className='my-favorites-container'>
         <button className='return-button' onClick={returnBack}></button>

@@ -104,7 +104,13 @@ function Quizzes() {
   return (
     <div>
       <div className='header-wrapper'>
+        
+        <div className='header-container'>
         <div className='cabinet'></div>
+          <h1 onClick={showMyQuizzes}>Мои Тесты</h1>
+          <h1 onClick={showFavorites}>Избранное</h1>
+          <h1 onClick={addNewQuiz}>Создать тест</h1>
+          </div>
       </div>
       <ProfileContainer /> 
         <div id="buttons-container" className='buttons-container'>

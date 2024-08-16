@@ -9,6 +9,7 @@ function TestPage() {
   const query = new URLSearchParams(location.search);
   const quizId = query.get('quizId');
   const startTest = query.get('startTest') === 'true';
+  const [isTokenValid, setIsTokenValid] = useState(true);
 
   const [folderName, setFolderName] = useState('');
   const [categoryName, setCategoryName] = useState(''); 
@@ -178,12 +179,34 @@ function TestPage() {
     navigate(`/current-quiz-detail?quizId=${quizId}`);
   };
 
+  const showFavorites = () => {
+    navigate('/favorites');
+  };
+
+  const showMyQuizzes = () => {
+    navigate('/myQuizzes');
+  };
+
+  const addNewQuiz = () => {
+    if (!isTokenValid) {
+      alert('Вы не авторизованы. Пожалуйста, войдите в систему.');
+      navigate('/'); 
+      return;
+    }
+    navigate('/createQuiz'); 
+  };
  
 
   return (
     <div>
-      <div className='header-wrapper-myquizzes'>
-        <h1>{folderName}</h1>
+      <div className='header-wrapper'>
+        
+        <div className='header-container'>
+        <div className='cabinet'></div>
+          <h1 onClick={showMyQuizzes}>Мои Тесты</h1>
+          <h1 onClick={showFavorites}>Избранное</h1>
+          <h1 onClick={addNewQuiz}>Создать тест</h1>
+          </div>
       </div>
       <ProfileContainer /> 
       

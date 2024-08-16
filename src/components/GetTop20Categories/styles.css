@@ -48,16 +48,3 @@
   background-color: #fff;
   border-radius: 12px;
 }
-.header-wrapper{
-    display: flex;
-    height: 100px;
-    flex-direction: column; 
-    justify-content: center; 
-
-}
-.cabinet{
-  height: 22px;
-  width: 266px;
-  background-image: url("/public/Assets/Личный_кабинет.svg");
-
-}

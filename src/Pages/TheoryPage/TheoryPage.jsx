@@ -8,6 +8,7 @@ function TheoryPage() {
   const location = useLocation();
   const query = new URLSearchParams(location.search);
   const quizId = query.get('quizId');
+  const [isTokenValid, setIsTokenValid] = useState(true); 
 
   const [questions, setQuestions] = useState([]);
   const [expandedQuestionIndex, setExpandedQuestionIndex] = useState(null);
@@ -55,10 +56,33 @@ function TheoryPage() {
     navigate(`/current-quiz-detail?quizId=${quizId}`);
   };
 
+  const showFavorites = () => {
+    navigate('/favorites');
+  };
+
+  const showMyQuizzes = () => {
+    navigate('/myQuizzes');
+  };
+
+  const addNewQuiz = () => {
+    if (!isTokenValid) {
+      alert('Вы не авторизованы. Пожалуйста, войдите в систему.');
+      navigate('/'); 
+      return;
+    }
+    navigate('/createQuiz'); 
+  };
+
   return (
     <div>
-      <div className='header-wrapper-myquizzes'>
-        <h1>Теория</h1>
+      <div className='header-wrapper'>
+        
+        <div className='header-container'>
+        <div className='cabinet'></div>
+          <h1 onClick={showMyQuizzes}>Мои Тесты</h1>
+          <h1 onClick={showFavorites}>Избранное</h1>
+          <h1 onClick={addNewQuiz}>Создать тест</h1>
+          </div>
       </div>
       <ProfileContainer /> 
 

@@ -9,6 +9,7 @@ const CurrentQuizDetailed = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [expandedQuestionIndex, setExpandedQuestionIndex] = useState(null);
+  const [isTokenValid, setIsTokenValid] = useState(true); 
   const [isFavorite, setIsFavorite] = useState(false);
 
   const navigate = useNavigate();
@@ -139,9 +140,35 @@ const CurrentQuizDetailed = () => {
     }
   };
 
+  const showFavorites = () => {
+    navigate('/favorites');
+  };
+
+  const showMyQuizzes = () => {
+    navigate('/myQuizzes');
+  };
+
+  const addNewQuiz = () => {
+    if (!isTokenValid) {
+      alert('Вы не авторизованы. Пожалуйста, войдите в систему.');
+      navigate('/'); 
+      return;
+    }
+    navigate('/createQuiz'); 
+  };
+
+
   return (
     <div>
-      <div className='header-wrapper-myquizzes'></div>
+      <div className='header-wrapper'>
+        
+        <div className='header-container'>
+        <div className='cabinet'></div>
+          <h1 onClick={showMyQuizzes}>Мои Тесты</h1>
+          <h1 onClick={showFavorites}>Избранное</h1>
+          <h1 onClick={addNewQuiz}>Создать тест</h1>
+          </div>
+      </div>
       <ProfileContainer /> 
       <div className='quiz-detailed-container'>
         <button className='return-button' onClick={returnToQuizzes}></button>

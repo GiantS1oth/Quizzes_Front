@@ -11,6 +11,7 @@ const CreateNewQuiz = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [showResults, setShowResults] = useState(false);
   const [showConfirm, setShowConfirm] = useState(false);
+  const [isTokenValid, setIsTokenValid] = useState(true);
 
   const navigate = useNavigate();
   const username = localStorage.getItem('username');
@@ -166,12 +167,39 @@ const CreateNewQuiz = () => {
     navigate(`/quizzes`);
   };
 
+  const showFavorites = () => {
+    navigate('/favorites');
+  };
+
+  const showMyQuizzes = () => {
+    navigate('/myQuizzes');
+  };
+
+  const addNewQuiz = () => {
+    if (!isTokenValid) {
+      alert('Вы не авторизованы. Пожалуйста, войдите в систему.');
+      navigate('/'); 
+      return;
+    }
+    navigate('/createQuiz'); 
+  };
+
   return (
     <div>
-      <div className='header-wrapper-myquizzes'></div>
+      <div className='header-wrapper'>
+        
+        <div className='header-container'>
+        <div className='cabinet'></div>
+          <h1 onClick={showMyQuizzes}>Мои Тесты</h1>
+          <h1 onClick={showFavorites}>Избранное</h1>
+          <h1 onClick={addNewQuiz}>Создать тест</h1>
+          </div>
+      </div>
       <ProfileContainer /> 
       <div className='createquiz-container'>
-        <button className='return-button' onClick={returnToQuizzes}></button>
+      <button className='return-button' onClick={returnToQuizzes}></button>
+        <div className='inner-content-addquiz'>
+        
         <h1>Добавить новый тест</h1>
         {currentStep === 1 && (
           <div>
@@ -179,6 +207,7 @@ const CreateNewQuiz = () => {
             <input
               type="text"
               id="quiz-name"
+              className='input-name'
               placeholder="Имя теста"
               value={formData.name}
               onChange={(e) => setFormData(prevState => ({
@@ -187,15 +216,17 @@ const CreateNewQuiz = () => {
               }))}
               required
             />
-            <button onClick={() => setCurrentStep(2)}>Далее</button>
-          </div>
+            <button className='next-button-addq' onClick={() => setCurrentStep(2)}>Далее</button>
+            </div>
+            
         )}
         {currentStep === 2 && (
           <div>
             <h2>Шаг 2: Описание теста</h2>
             <input
               type="text"
-              id="quiz-description"
+                id="quiz-description"
+                className='input-description'
               placeholder="Описание"
               value={formData.description}
               onChange={(e) => setFormData(prevState => ({
@@ -203,9 +234,11 @@ const CreateNewQuiz = () => {
                 description: e.target.value
               }))}
               required
-            />
-            <button onClick={() => setCurrentStep(1)}>Назад</button>
-            <button onClick={() => setCurrentStep(3)}>Далее</button>
+              />
+              
+                <button className='prev-button-addq'  onClick={() => setCurrentStep(1)}>Назад</button>
+                <button className='next-prev-buttons-addq' onClick={() => setCurrentStep(3)}>Далее</button>
+                
           </div>
         )}
         {currentStep === 3 && (
@@ -213,7 +246,8 @@ const CreateNewQuiz = () => {
             <h2>Шаг 3: Категория теста</h2>
             <input
               type="text"
-              id="quiz-category"
+                id="quiz-category"
+                className='input-category'
               placeholder="Название категории"
               value={formData.category}
               onChange={(e) => {
@@ -241,8 +275,8 @@ const CreateNewQuiz = () => {
                 </ul>
               </div>
             )}
-            <button onClick={() => setCurrentStep(2)}>Назад</button>
-            <button onClick={handleSubmit}>Создать</button>
+            <button className='next-prev-buttons-addq' onClick={() => setCurrentStep(2)}>Назад</button>
+            <button className='prev-button-addq'  onClick={handleSubmit}>Создать</button>
           </div>
         )}
         {showConfirm && (
@@ -253,7 +287,8 @@ const CreateNewQuiz = () => {
           </div>
         )}
         {message && <p>{message}</p>}
-      </div>
+        </div>
+        </div>
     </div>
   );
 };

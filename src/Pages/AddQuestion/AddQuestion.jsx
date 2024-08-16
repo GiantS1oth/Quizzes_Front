@@ -1,23 +1,22 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import ProfileContainer from '../../components/ProfileContainer/ProfileContainer';
-import '../styles.css';
+import '../styles.css'; // Убедитесь, что путь к стилям правильный
 
 function AddQuestion() {
   const navigate = useNavigate();
   const location = useLocation();
   const query = new URLSearchParams(location.search);
   const quizId = query.get('quizId');
+  const [isTokenValid, setIsTokenValid] = useState(true);
 
   const [questionText, setQuestionText] = useState('');
   const [answers, setAnswers] = useState({ text1: '', text2: '', text3: '', text4: '' });
   const [rightAnswer, setRightAnswer] = useState('');
   const [image, setImage] = useState('');
   const [questionNumber, setQuestionNumber] = useState(1);
-  const username = localStorage.getItem('username');
 
-  useEffect(() => {
-  }, [quizId]);
+  useEffect(() => {}, [quizId]);
 
   const handleSendQuestion = async (newQuestion) => {
     const token = localStorage.getItem('token');
@@ -49,7 +48,6 @@ function AddQuestion() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    
     if (
       questionText.trim() === '' ||
       rightAnswer === '' ||
@@ -76,7 +74,6 @@ function AddQuestion() {
     const success = await handleSendQuestion(newQuestion);
     
     if (success) {
-     
       setQuestionText('');
       setAnswers({ text1: '', text2: '', text3: '', text4: '' });
       setRightAnswer('');
@@ -88,7 +85,6 @@ function AddQuestion() {
   const handleSaveAndReturn = async (e) => {
     e.preventDefault();
 
-    
     if (
       questionText.trim() === '' ||
       rightAnswer === '' ||
@@ -123,9 +119,33 @@ function AddQuestion() {
     navigate(`/current-quiz-detail?quizId=${quizId}`);
   };
 
+  const showFavorites = () => {
+    navigate('/favorites');
+  };
+
+  const showMyQuizzes = () => {
+    navigate('/myQuizzes');
+  };
+
+  const addNewQuiz = () => {
+    if (!isTokenValid) {
+      alert('Вы не авторизованы. Пожалуйста, войдите в систему.');
+      navigate('/'); 
+      return;
+    }
+    navigate('/createQuiz'); 
+  };
+
   return (
     <div>
-      <div className='header-wrapper-myquizzes'></div>
+      <div className='header-wrapper'>
+        <div className='header-container'>
+          <div className='cabinet'></div>
+          <h1 onClick={showMyQuizzes}>Мои Тесты</h1>
+          <h1 onClick={showFavorites}>Избранное</h1>
+          <h1 onClick={addNewQuiz}>Создать тест</h1>
+        </div>
+      </div>
       <ProfileContainer /> 
       <div className='add-question-container'>
         <button className='return-button' onClick={returnBack}></button>
@@ -134,87 +154,110 @@ function AddQuestion() {
           <input 
             type="text" 
             id="questionText" 
+            className="input-field question-text" 
             placeholder="Текст вопроса" 
             value={questionText} 
             onChange={(e) => setQuestionText(e.target.value)} 
             required 
           />
-          <input 
-            type="text" 
-            id="answer1" 
-            placeholder="Ответ 1" 
-            value={answers.text1} 
-            onChange={(e) => setAnswers({ ...answers, text1: e.target.value })} 
-            required 
-          />
-          <input 
-            type="text" 
-            id="answer2" 
-            placeholder="Ответ 2" 
-            value={answers.text2} 
-            onChange={(e) => setAnswers({ ...answers, text2: e.target.value })} 
-            required 
-          />
-          <input 
-            type="text" 
-            id="answer3" 
-            placeholder="Ответ 3" 
-            value={answers.text3} 
-            onChange={(e) => setAnswers({ ...answers, text3: e.target.value })} 
-            required 
-          />
-          <input 
-            type="text" 
-            id="answer4" 
-            placeholder="Ответ 4" 
-            value={answers.text4} 
-            onChange={(e) => setAnswers({ ...answers, text4: e.target.value })} 
-            required 
-          />
-          <div>
-            <label>
+          <div className="answer-grid">
+            <div className="answer-item">
+              <input 
+                type="text" 
+                id="answer1" 
+                className="input-field answer-input" 
+                placeholder="Ответ 1" 
+                value={answers.text1} 
+                onChange={(e) => setAnswers({ ...answers, text1: e.target.value })} 
+                required 
+              />
               <input 
                 type="radio" 
+                id="radioAnswer1" 
                 name="rightAnswer" 
                 value="1" 
                 checked={rightAnswer === '1'} 
                 onChange={(e) => setRightAnswer(e.target.value)} 
-              /> 
-              Правильный
-            </label>
-            <label>
+                className="custom-radio-button"
+              />
+              <label className="custom-radio-label-new" htmlFor="radioAnswer1">
+                <span></span>
+              </label>
+            </div>
+            <div className="answer-item">
+              <input 
+                type="text" 
+                id="answer2" 
+                className="input-field answer-input" 
+                placeholder="Ответ 2" 
+                value={answers.text2} 
+                onChange={(e) => setAnswers({ ...answers, text2: e.target.value })} 
+                required 
+              />
               <input 
                 type="radio" 
+                id="radioAnswer2" 
                 name="rightAnswer" 
                 value="2" 
                 checked={rightAnswer === '2'} 
                 onChange={(e) => setRightAnswer(e.target.value)} 
-              /> 
-              Правильный
-            </label>
-            <label>
+                className="custom-radio-button"
+              />
+              <label className="custom-radio-label-new" htmlFor="radioAnswer2">
+                <span></span>
+              </label>
+            </div>
+            <div className="answer-item">
+              <input 
+                type="text" 
+                id="answer3" 
+                className="input-field answer-input" 
+                placeholder="Ответ 3" 
+                value={answers.text3} 
+                onChange={(e) => setAnswers({ ...answers, text3: e.target.value })} 
+                required 
+              />
               <input 
                 type="radio" 
+                id="radioAnswer3" 
                 name="rightAnswer" 
                 value="3" 
                 checked={rightAnswer === '3'} 
                 onChange={(e) => setRightAnswer(e.target.value)} 
-              /> 
-              Правильный
-            </label>
-            <label>
+                className="custom-radio-button"
+              />
+              <label className="custom-radio-label-new" htmlFor="radioAnswer3">
+                <span></span>
+              </label>
+            </div>
+            <div className="answer-item">
+              <input 
+                type="text" 
+                id="answer4" 
+                className="input-field answer-input" 
+                placeholder="Ответ 4" 
+                value={answers.text4} 
+                onChange={(e) => setAnswers({ ...answers, text4: e.target.value })} 
+                required 
+              />
               <input 
                 type="radio" 
+                id="radioAnswer4" 
                 name="rightAnswer" 
                 value="4" 
                 checked={rightAnswer === '4'} 
                 onChange={(e) => setRightAnswer(e.target.value)} 
-              /> 
-              Правильный
-            </label>
+                className="custom-radio-button"
+              />
+              <label className="custom-radio-label-new" htmlFor="radioAnswer4">
+                <span></span>
+              </label>
+            </div>
           </div>
-          <button type="submit">Далее</button>
-          <button id="save-button" onClick={handleSaveAndReturn}>Сохранить и вернуться</button>
+          <div className='functional-buttons'>
+          <button type="submit" className="submit-button">Далее</button>
+            <button type="button" id="save-button" onClick={handleSaveAndReturn} className="save-and-return-button">Сохранить и вернуться</button>
+            </div>
         </form>
       </div>
     </div>
