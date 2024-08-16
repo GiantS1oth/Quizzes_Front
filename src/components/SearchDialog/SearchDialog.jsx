@@ -1,12 +1,17 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import './styles.css'; 
 
 const SearchDialog = ({ show, onClose, onSearch, data }) => {
   const [query, setQuery] = useState('');
+  const inputRef = useRef(null); 
 
   useEffect(() => {
     if (show) {
       setQuery('');
+      
+      if (inputRef.current) {
+        inputRef.current.focus();
+      }
     }
   }, [show]);
 
@@ -33,17 +38,18 @@ const SearchDialog = ({ show, onClose, onSearch, data }) => {
           value={query}
           onChange={handleChange}
           className="search-input-inside"
+          ref={inputRef} 
         />
         <h3>Результаты поиска</h3>
-        <ul>
+        <ul >
           {data.length > 0 ? (
             data.map(item => (
-              <li key={item.id}>
+              <div className='search-list' key={item.id}>
                 <a href={`/current-quiz-detail?quizId=${item.id}`}>{item.name}</a>
-              </li>
+              </div>
             ))
           ) : (
-            <li>Нет результатов</li>
+            <></>
           )}
         </ul>
       </div>

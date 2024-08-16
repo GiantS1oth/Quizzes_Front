@@ -1,37 +1,36 @@
-
-
 .dialog-overlay {
   position: fixed;
-  width: 1920px;
-  height: 1080px;
+  width: 100%;
+  height: 100%;
   top: 0;
   left: 0;
-  right: 0;
-  bottom: 0;
-  background: rgba(0, 0, 0, 0.5);
+  background: none;
   z-index: 10; 
 }
 
 .dialog-content {
+  right: -562px;
   background: #fff;
   padding: 20px;
   border-radius: 8px;
-  max-width: 1920px;
-  width: 1850px;
-  height: 1080px;
+  width: 1255px;
+  top: 489px;
+  max-width: 1295px;
+  height: 375px;
   position: relative;
   z-index: 11;
+  overflow: hidden; 
 }
 
 .close-button {
   position: absolute;
   top: 10px;
   right: 10px;
-  background: #e74c3c;
+  background: #007bff;
   color: #fff;
   border: none;
-  border-radius: 8px;
-  width: 15px;
+  border-radius: 5px;
+  width: 10px;
   height: 10px;
   display: flex;
   align-items: center;
@@ -43,4 +42,46 @@
   width: 100%;
   padding: 8px;
   margin-bottom: 10px;
+  border: 1px solid #70A8FF;
+  outline: none;
+  border-radius: 8px;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  max-height: 250px; 
+  overflow-y: scroll; 
+  overflow-x: hidden; 
+  -ms-overflow-style: none;  
+  scrollbar-width: none;  
+  justify-content: center;
+}
+
+ul :hover{
+  background-color: #EAF0FF;
+  color: #000;
+}
+
+ul a {
+
+  text-decoration: none;
+  text-align: center;
+  color: #70A8FF;
+}
+
+
+ul::-webkit-scrollbar {
+  display: none;  
+}
+
+.search-list {
+  width: 100%; 
+  height: 35px;
+  padding: 5px;
+  margin: 5px 0;
+  border: 1px solid #70A8FF;
+  border-radius: 8px;
+  box-sizing: border-box; 
 }

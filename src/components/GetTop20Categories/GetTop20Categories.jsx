@@ -12,8 +12,8 @@ const GetTop20Categories = () => {
   const quizId = query.get('quizId');
 
   useEffect(() => {
-    console.log('Location search:', location.search); // Проверяем содержимое location.search
-    console.log('Quiz ID:', quizId); // Проверяем значение quizId
+    console.log('Location search:', location.search); 
+    console.log('Quiz ID:', quizId); 
 
     const fetchTopCategories = async () => {
       const token = localStorage.getItem('token');
