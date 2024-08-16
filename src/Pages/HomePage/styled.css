@@ -127,6 +127,7 @@ main {
 .current-week {
   display: flex;
   flex-direction: column;
+  justify-content: center;
   margin-bottom: 0px; 
 }
 
@@ -153,15 +154,30 @@ main {
 }
 
 .black {
+  display: flex;
+  flex-direction: column;
   background-color: #1C2234;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
 }
 
 .blue {
+  display: flex;
+  flex-direction: column;
   background-color: #2A63F6;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
 }
 
 .dark-blue {
+  display: flex;
+  flex-direction: column;
   background-color: #173172;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
 }
 
 .sidebar {

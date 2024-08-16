@@ -51,9 +51,19 @@ function HomePage() {
     <section className="current-week">
       <img src="\Assets\Актуальные на этой неделе_.svg" alt="week-actual" className='week-actual'/>
       <div className="current-week-items">
-        <div className="item black"></div>
-        <div className="item blue"></div>
-        <div className="item dark-blue"></div>
+            <div className="item black">
+              <h2>Математика 1й(класс)</h2>
+              <p>Какие числа пропущены?
+              7, ☐, ☐, 4</p>
+        </div>
+            <div className="item blue">
+            <h2>Ангийский язык 2й(курс)</h2>
+              <p>She ___ to the store yesterday </p>
+        </div>
+            <div className="item dark-blue">
+            <h2>География</h2>
+              <p>Какой язык имеет официальный статус в государстве Андорра?</p>
+        </div>
       </div>
     </section>
   </main>
