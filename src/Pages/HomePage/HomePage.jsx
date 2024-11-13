@@ -14,7 +14,8 @@ function HomePage() {
 
   return (
     <div className='background'>
-  <header>
+      <header>
+        <div className='header-container'>
     <div className='logo-container'>
       <img src="\Assets\vector.svg" alt="Q logo" className="logo" />
       <img src="\Assets\uizzes.svg" alt="Q logo" className="logo-letter" /> 
@@ -26,9 +27,11 @@ function HomePage() {
       <button className="login-button" onClick={() => navigate('/login')}>Войти&nbsp; 
         <img src="\Assets\arrow_right.svg" alt="arrow" />
       </button>
-    </div>
+          </div>
+          </div>
   </header>
-  <main>
+      <main>
+        <div className='main-container'>
     <div className='body-container'>
       <div className="banner">
         <div className="banner-item">
@@ -54,7 +57,7 @@ function HomePage() {
             <div className="item black">
               <h2>Математика 1й(класс)</h2>
               <p>Какие числа пропущены?
-              7, ☐, ☐, 4</p>
+              7, _, _, 4</p>
         </div>
             <div className="item blue">
             <h2>Ангийский язык 2й(курс)</h2>
@@ -65,7 +68,8 @@ function HomePage() {
               <p>Какой язык имеет официальный статус в государстве Андорра?</p>
         </div>
       </div>
-    </section>
+          </section>
+          </div>
   </main>
 </div>
     
